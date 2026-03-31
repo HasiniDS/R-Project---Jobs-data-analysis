@@ -65,6 +65,11 @@ final_k <- cluster_selection_metrics %>%
   slice(1) %>%
   pull(k)
 
+cluster_selection_metrics <- cluster_selection_metrics %>%
+  mutate(
+    selection_status = if_else(k == final_k, "Selected", "Candidate")
+  )
+
 write_output_table(
   cluster_selection_metrics,
   "Table 13 Cluster Selection Diagnostics.csv"
@@ -128,35 +133,70 @@ elbow_curve_plot <- ggplot(
   cluster_selection_metrics,
   aes(x = k, y = total_withinss)
 ) +
-  geom_line(colour = analysis_palette["primary"], linewidth = 0.9) +
-  geom_point(colour = analysis_palette["primary"], size = 2.5) +
-  geom_vline(xintercept = final_k, linetype = "dashed", colour = analysis_palette["accent"]) +
+  geom_line(colour = analysis_palette["primary"], linewidth = 1) +
+  geom_point(
+    aes(fill = selection_status),
+    shape = 21,
+    size = 4,
+    stroke = 1,
+    colour = analysis_palette["ink"]
+  ) +
+  geom_text(
+    data = cluster_selection_metrics %>% filter(selection_status == "Selected"),
+    aes(label = paste0("Chosen k = ", k)),
+    nudge_y = 0.06 * max(cluster_selection_metrics$total_withinss),
+    size = 3.6,
+    colour = analysis_palette["ink"],
+    show.legend = FALSE
+  ) +
+  scale_fill_manual(
+    values = c(
+      "Candidate" = "white",
+      "Selected" = unname(analysis_palette["accent"])
+    )
+  ) +
   scale_x_continuous(breaks = candidate_k_values) +
   labs(
-    title = "Elbow Curve for K-Means Clustering",
-    subtitle = paste("Selected solution: k =", final_k),
+    title = "Elbow Curve Shows Rapid Improvement Up to the Chosen Solution",
+    subtitle = paste("The within-cluster variation falls quickly before the gains begin to flatten at k =", final_k),
     x = "Number of clusters (k)",
-    y = "Total within-cluster sum of squares"
+    y = "Total within-cluster sum of squares",
+    caption = figure_caption(
+      "Beyond the chosen solution, each extra cluster delivers smaller reductions in within-cluster variation."
+    )
   ) +
   analysis_theme()
 
 silhouette_summary_plot <- ggplot(
   cluster_selection_metrics,
-  aes(x = k, y = average_silhouette_width)
+  aes(x = factor(k), y = average_silhouette_width, fill = selection_status)
 ) +
-  geom_line(colour = analysis_palette["secondary"], linewidth = 0.9) +
-  geom_point(colour = analysis_palette["secondary"], size = 2.5) +
-  geom_vline(xintercept = final_k, linetype = "dashed", colour = analysis_palette["accent"]) +
-  scale_x_continuous(breaks = candidate_k_values) +
+  geom_col(width = 0.62, colour = "white") +
+  geom_text(
+    aes(label = format_number(average_silhouette_width, 3)),
+    vjust = -0.4,
+    size = 3.5,
+    colour = analysis_palette["ink"]
+  ) +
+  scale_fill_manual(
+    values = c(
+      "Candidate" = unname(analysis_palette["secondary"]),
+      "Selected" = unname(analysis_palette["accent"])
+    )
+  ) +
   labs(
-    title = "Average Silhouette Width by Cluster Count",
-    subtitle = paste("Highest average silhouette width at k =", final_k),
+    title = "Silhouette Comparison Supports the Same Cluster Count",
+    subtitle = paste("The highest average silhouette width is observed at k =", final_k),
     x = "Number of clusters (k)",
-    y = "Average silhouette width"
+    y = "Average silhouette width",
+    caption = figure_caption(
+      "A higher silhouette width suggests that observations are better separated from other clusters."
+    )
   ) +
   analysis_theme()
 
 pca_model <- prcomp(cluster_feature_matrix, center = FALSE, scale. = FALSE)
+explained_variance <- summary(pca_model)$importance["Proportion of Variance", 1:2]
 
 pca_cluster_plot_data <- tibble::tibble(
   pc1 = pca_model$x[, 1],
@@ -164,28 +204,114 @@ pca_cluster_plot_data <- tibble::tibble(
   cluster = jobs_clustered_data$cluster
 )
 
+cluster_levels <- levels(pca_cluster_plot_data$cluster)
+
+pca_cluster_centroids <- pca_cluster_plot_data %>%
+  group_by(cluster) %>%
+  summarise(
+    pc1 = mean(pc1),
+    pc2 = mean(pc2),
+    cluster_size = n(),
+    .groups = "drop"
+  )
+
+pca_loading_data <- as.data.frame(pca_model$rotation[, 1:2]) %>%
+  tibble::rownames_to_column("feature") %>%
+  tibble::as_tibble() %>%
+  mutate(
+    loading_strength = sqrt(PC1^2 + PC2^2)
+  ) %>%
+  arrange(desc(loading_strength)) %>%
+  slice_head(n = 5)
+
+arrow_scale <- min(
+  diff(range(pca_cluster_plot_data$pc1)),
+  diff(range(pca_cluster_plot_data$pc2))
+) * 0.28
+
+pca_loading_data <- pca_loading_data %>%
+  mutate(
+    pc1_end = PC1 * arrow_scale,
+    pc2_end = PC2 * arrow_scale
+  )
+
 cluster_visualisation_plot <- ggplot(
   pca_cluster_plot_data,
-  aes(x = pc1, y = pc2, colour = cluster)
+  aes(x = pc1, y = pc2)
 ) +
-  geom_point(alpha = 0.75, size = 2.1) +
-  stat_ellipse(linewidth = 0.8, alpha = 0.35) +
-  scale_colour_manual(values = unname(c(
-    analysis_palette["primary"],
-    analysis_palette["secondary"],
-    analysis_palette["accent"],
-    analysis_palette["neutral"],
-    "#4F7C5C",
-    "#9368B7"
-  ))) +
-  labs(
-    title = "PCA View of the Final K-Means Clusters",
-    x = "Principal component 1",
-    y = "Principal component 2",
-    colour = "Cluster"
+  stat_ellipse(
+    aes(fill = cluster, colour = cluster),
+    geom = "polygon",
+    alpha = 0.12,
+    linewidth = 0.8,
+    show.legend = FALSE
   ) +
-  analysis_theme() +
-  theme(legend.position = "right")
+  geom_point(
+    aes(colour = cluster),
+    alpha = 0.72,
+    size = 2.2
+  ) +
+  geom_segment(
+    data = pca_loading_data,
+    aes(x = 0, y = 0, xend = pc1_end, yend = pc2_end),
+    inherit.aes = FALSE,
+    arrow = grid::arrow(length = grid::unit(0.18, "cm")),
+    colour = analysis_palette["charcoal"],
+    linewidth = 0.75,
+    alpha = 0.9
+  ) +
+  geom_text(
+    data = pca_loading_data,
+    aes(x = pc1_end, y = pc2_end, label = feature),
+    inherit.aes = FALSE,
+    colour = analysis_palette["charcoal"],
+    size = 3.3,
+    vjust = -0.5
+  ) +
+  geom_point(
+    data = pca_cluster_centroids,
+    aes(x = pc1, y = pc2),
+    inherit.aes = FALSE,
+    shape = 23,
+    size = 4.3,
+    fill = "white",
+    colour = analysis_palette["ink"],
+    stroke = 1
+  ) +
+  geom_label(
+    data = pca_cluster_centroids,
+    aes(x = pc1, y = pc2, label = paste0("Cluster ", cluster, "\n", "n = ", cluster_size), fill = cluster),
+    inherit.aes = FALSE,
+    colour = "white",
+    fontface = "bold",
+    size = 3.3,
+    linewidth = 0,
+    show.legend = FALSE
+  ) +
+  scale_colour_manual(
+    values = unname(cluster_palette[cluster_levels]),
+    breaks = cluster_levels
+  ) +
+  scale_fill_manual(
+    values = unname(cluster_palette[cluster_levels]),
+    breaks = cluster_levels
+  ) +
+  coord_equal() +
+  labs(
+    title = "Principal Component View of the Final Job Clusters",
+    subtitle = paste(
+      "The first two components explain",
+      format_percent(sum(explained_variance), 1),
+      "of the scaled feature variation. Arrows show the strongest variable directions."
+    ),
+    x = paste0("Principal component 1 (", format_percent(explained_variance[1], 1), ")"),
+    y = paste0("Principal component 2 (", format_percent(explained_variance[2], 1), ")"),
+    colour = "Cluster",
+    caption = figure_caption(
+      "Clusters are exploratory groupings. The main separation is driven more by technical skill mix than by salary alone."
+    )
+  ) +
+  analysis_theme(legend_position = "right")
 
 save_analysis_figure(
   elbow_curve_plot,

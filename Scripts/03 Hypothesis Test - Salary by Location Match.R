@@ -34,9 +34,12 @@ hypothesis_test_data <- jobs_data %>%
 hypothesis_group_summary <- hypothesis_test_data %>%
   group_by(same_state_group) %>%
   summarise(
-    group_n = n(),
+    group_n = sum(!is.na(avg_salary)),
     mean_avg_salary = mean(avg_salary, na.rm = TRUE),
     sd_avg_salary = sd(avg_salary, na.rm = TRUE),
+    standard_error = sd_avg_salary / sqrt(group_n),
+    ci_low = mean_avg_salary - qt(0.975, df = group_n - 1) * standard_error,
+    ci_high = mean_avg_salary + qt(0.975, df = group_n - 1) * standard_error,
     .groups = "drop"
   )
 
@@ -96,33 +99,101 @@ write_output_table(
 # Supporting plot
 # --------------------------------------------------
 
-salary_same_state_boxplot <- ggplot(
-  hypothesis_test_data,
-  aes(x = same_state_group, y = avg_salary, fill = same_state_group)
+annotation_text <- paste(
+  paste0(
+    "Mean difference = ",
+    format_number(t_test_results_table$mean_difference, 2),
+    "k"
+  ),
+  paste0(
+    "95% CI [",
+    format_number(t_test_results_table$confidence_interval_low, 2),
+    ", ",
+    format_number(t_test_results_table$confidence_interval_high, 2),
+    "]"
+  ),
+  paste0(
+    "Welch p = ",
+    format_p_value(t_test_results_table$p_value),
+    "; Cohen's d = ",
+    format_number(t_test_results_table$cohens_d, 2)
+  ),
+  sep = "\n"
+)
+
+annotation_segment_data <- tibble::tibble(
+  start_group = "Same state",
+  end_group = "Different state",
+  start_mean = same_state_stats$mean_avg_salary,
+  end_mean = different_state_stats$mean_avg_salary
+)
+
+salary_same_state_inference_plot <- ggplot(
+  hypothesis_group_summary,
+  aes(x = same_state_group, y = mean_avg_salary, colour = same_state_group)
 ) +
-  geom_boxplot(alpha = 0.9, width = 0.65, outlier.alpha = 0.35) +
-  stat_summary(
-    fun = mean,
-    geom = "point",
-    shape = 21,
-    size = 3,
-    fill = "white",
-    colour = "black"
+  geom_segment(
+    aes(
+      x = start_group,
+      xend = end_group,
+      y = start_mean,
+      yend = end_mean
+    ),
+    data = annotation_segment_data,
+    inherit.aes = FALSE,
+    colour = analysis_palette["neutral"],
+    linewidth = 0.8,
+    linetype = "dashed"
   ) +
-  scale_fill_manual(values = unname(c(
-    analysis_palette["primary"],
-    analysis_palette["neutral"]
-  ))) +
+  geom_linerange(
+    aes(ymin = ci_low, ymax = ci_high),
+    linewidth = 1.2,
+    show.legend = FALSE
+  ) +
+  geom_point(
+    aes(fill = same_state_group),
+    shape = 21,
+    size = 4.2,
+    stroke = 1.1,
+    show.legend = FALSE
+  ) +
+  geom_text(
+    aes(label = paste0(format_number(mean_avg_salary, 1), "k")),
+    nudge_y = 3,
+    size = 3.6,
+    colour = analysis_palette["ink"],
+    show.legend = FALSE
+  ) +
+  annotate(
+    "label",
+    x = 1.5,
+    y = max(hypothesis_group_summary$ci_high) + 10,
+    label = annotation_text,
+    fill = "white",
+    colour = analysis_palette["ink"],
+    linewidth = 0.25,
+    size = 3.6
+  ) +
+  scale_colour_manual(
+    values = unname(binary_palette[levels(hypothesis_group_summary$same_state_group)])
+  ) +
+  scale_fill_manual(
+    values = unname(binary_palette[levels(hypothesis_group_summary$same_state_group)])
+  ) +
+  scale_y_continuous(expand = expansion(mult = c(0.02, 0.20))) +
   labs(
-    title = "Average Salary by Same-State Indicator",
-    subtitle = "White points show the group means",
+    title = "Same-State Jobs Have a Slightly Lower Mean Salary",
+    subtitle = "Points show the group mean salary and lines show the 95% confidence interval for each group",
     x = "Posting location relative to headquarters",
-    y = "Average salary (thousand USD)"
+    y = "Average salary (thousand USD)",
+    caption = figure_caption(
+      "The group difference is statistically detectable, but the estimated effect size is small."
+    )
   ) +
   analysis_theme()
 
 save_analysis_figure(
-  salary_same_state_boxplot,
+  salary_same_state_inference_plot,
   "Figure 07 Salary by Same State Group.png"
 )
 

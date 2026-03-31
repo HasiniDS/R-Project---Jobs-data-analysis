@@ -123,24 +123,82 @@ selected_job_groups <- c(
 )
 
 analysis_palette <- c(
-  primary = "#1F4E79",
-  secondary = "#6C8EAD",
-  accent = "#A64B3C",
+  primary = "#16324F",
+  secondary = "#6C8FB3",
+  accent = "#B25D4A",
   neutral = "#7A8793",
-  light_fill = "#DDE8F1"
+  light_fill = "#EEF3F7",
+  sage = "#5A7D6B",
+  gold = "#C59A3D",
+  charcoal = "#425466",
+  ink = "#16324F"
 )
 
-analysis_theme <- function() {
+job_group_palette <- c(
+  "data scientist" = "#1D4E89",
+  "analyst" = "#7A99B8",
+  "data engineer" = "#B45F49",
+  "mle" = "#607D68",
+  "other_or_unspecified" = "#9AA6B2"
+)
+
+binary_palette <- c(
+  "Same state" = "#1D4E89",
+  "Different state" = "#AAB6C2"
+)
+
+cluster_palette <- c(
+  "1" = "#1D4E89",
+  "2" = "#B45F49",
+  "3" = "#607D68",
+  "4" = "#8B74A9",
+  "5" = "#C59A3D",
+  "6" = "#6C8FB3"
+)
+
+analysis_theme <- function(legend_position = "none") {
   theme_minimal(base_size = 12) +
     theme(
-      plot.title = element_text(face = "bold", size = 14),
-      plot.subtitle = element_text(size = 10, colour = "grey30"),
-      axis.title = element_text(face = "bold"),
+      plot.background = element_rect(fill = "white", colour = NA),
+      panel.background = element_rect(fill = "#FBFCFD", colour = NA),
+      plot.title = element_text(
+        face = "bold",
+        size = 15,
+        colour = analysis_palette["ink"],
+        margin = margin(b = 4)
+      ),
+      plot.subtitle = element_text(
+        size = 10.5,
+        colour = "grey30",
+        margin = margin(b = 10)
+      ),
+      plot.caption = element_text(
+        size = 9,
+        colour = "grey45",
+        hjust = 0,
+        margin = margin(t = 10)
+      ),
+      axis.title = element_text(face = "bold", colour = analysis_palette["ink"]),
       axis.text = element_text(colour = "grey20"),
+      legend.title = element_text(face = "bold"),
+      legend.background = element_blank(),
+      legend.key = element_blank(),
+      legend.position = legend_position,
       panel.grid.minor = element_blank(),
+      panel.grid.major = element_line(colour = "#E1E8EE", linewidth = 0.45),
       plot.margin = margin(10, 12, 10, 12),
-      legend.position = "none"
+      plot.title.position = "plot"
     )
+}
+
+figure_caption <- function(extra_note = NULL) {
+  base_caption <- "Source: Data Science Jobs Dataset - Clean.csv."
+
+  if (is.null(extra_note) || extra_note == "") {
+    return(base_caption)
+  }
+
+  paste(base_caption, extra_note)
 }
 
 save_analysis_figure <- function(plot_object,
@@ -189,6 +247,10 @@ add_model_fields <- function(data_object) {
 
 format_number <- function(x, digits = 2) {
   formatC(x, digits = digits, format = "f")
+}
+
+format_percent <- function(x, digits = 1) {
+  paste0(format_number(100 * x, digits = digits), "%")
 }
 
 format_p_value <- function(x) {

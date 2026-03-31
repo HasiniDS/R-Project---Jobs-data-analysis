@@ -77,30 +77,6 @@ saveRDS(
   )
 )
 
-png(
-  filename = file.path(
-    project_paths$outputs_figures,
-    "Figure 11 Decision Tree for Job Category Classification.png"
-  ),
-  width = 10,
-  height = 6.5,
-  units = "in",
-  res = 300,
-  bg = "white"
-)
-rpart.plot::rpart.plot(
-  classification_tree_model,
-  type = 4,
-  extra = 104,
-  under = TRUE,
-  fallen.leaves = TRUE,
-  box.palette = "Blues",
-  branch.lty = 1,
-  shadow.col = "grey85",
-  tweak = 1.05
-)
-dev.off()
-
 # --------------------------------------------------
 # Evaluation
 # --------------------------------------------------
@@ -173,6 +149,41 @@ tree_variable_importance <- tibble::tibble(
   importance = unname(classification_tree_model$variable.importance)
 ) %>%
   arrange(desc(importance))
+
+png(
+  filename = file.path(
+    project_paths$outputs_figures,
+    "Figure 11 Decision Tree for Job Category Classification.png"
+  ),
+  width = 11,
+  height = 7,
+  units = "in",
+  res = 300,
+  bg = "white"
+)
+rpart.plot::rpart.plot(
+  classification_tree_model,
+  type = 4,
+  extra = 104,
+  under = TRUE,
+  fallen.leaves = TRUE,
+  faclen = 0,
+  varlen = 0,
+  box.palette = "Blues",
+  branch.lty = 1,
+  branch.col = analysis_palette["charcoal"],
+  shadow.col = "grey85",
+  tweak = 1.12,
+  main = paste(
+    "Decision Tree for the Main Job Groups",
+    paste0(
+      "Test accuracy = ", format_number(classification_accuracy, 3),
+      "; majority baseline = ", format_number(majority_class_accuracy, 3)
+    ),
+    sep = "\n"
+  )
+)
+dev.off()
 
 cat("\nClassification class counts:\n")
 print(class_counts_table)
