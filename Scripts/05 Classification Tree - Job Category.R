@@ -1,5 +1,5 @@
 # ==================================================
-# Week 11 Jobs Project
+# Jobs Analyse
 # Script: 05 Classification Tree - Job Category.R
 # Purpose: Fit and evaluate a simple decision tree to classify the
 #          main job categories.

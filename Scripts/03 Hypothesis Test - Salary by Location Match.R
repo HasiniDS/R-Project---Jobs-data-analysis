@@ -1,5 +1,5 @@
 # ==================================================
-# Week 11 Jobs Project
+# Jobs Analyse
 # Script: 03 Hypothesis Test - Salary by Location Match.R
 # Purpose: Test whether average salary differs between jobs where
 #          the role is in the same state as company headquarters

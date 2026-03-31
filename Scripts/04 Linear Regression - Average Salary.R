@@ -1,5 +1,5 @@
 # ==================================================
-# Week 11 Jobs Project
+# Jobs Analyse
 # Script: 04 Linear Regression - Average Salary.R
 # Purpose: Fit and evaluate one linear regression model for
 #          average salary.

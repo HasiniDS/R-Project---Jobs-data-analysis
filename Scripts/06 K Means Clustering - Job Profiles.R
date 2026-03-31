@@ -1,5 +1,5 @@
 # ==================================================
-# Week 11 Jobs Project
+# Jobs Analyse
 # Script: 06 K Means Clustering - Job Profiles.R
 # Purpose: Use k-means clustering to explore useful groupings in
 #          the jobs dataset.

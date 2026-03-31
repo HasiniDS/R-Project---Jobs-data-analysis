@@ -1,5 +1,5 @@
 # ==================================================
-# Week 11 Jobs Project
+# Jobs Analyse
 # Script: 07 Written Summary and Presentation Notes.R
 # Purpose: Create the written project outputs for submission and
 #          presentation use.
@@ -333,7 +333,7 @@ writeLines(
 # --------------------------------------------------
 
 readme_lines <- c(
-  "# Week 11 Jobs Project",
+  "# Jobs Analyse",
   "",
   "## Assignment Context",
   "This project finalises the Week 11 group activity described in the module email and the file titled `Week 11 BIG Task`.",
@@ -341,7 +341,7 @@ readme_lines <- c(
   "The analysis covers one hypothesis test, one linear regression model, one classification model, one clustering method, interpretation, audience-focused communication, and reflection.",
   "",
   "## Project Title",
-  "Week 11 modelling, interpretation, and communication project using the cleaned data science jobs dataset.",
+  "Jobs Analyse: Week 11 modelling, interpretation, and communication using the cleaned data science jobs dataset.",
   "",
   "## File Structure",
   "```text",

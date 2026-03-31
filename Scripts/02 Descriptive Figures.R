@@ -1,5 +1,5 @@
 # ==================================================
-# Week 11 Jobs Project
+# Jobs Analyse
 # Script: 02 Descriptive Figures.R
 # Purpose: Create descriptive summaries and clean visualisations
 #          that support the later modelling choices.

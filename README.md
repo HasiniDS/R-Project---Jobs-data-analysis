@@ -1,4 +1,4 @@
-# Week 11 Jobs Project
+# Jobs Analyse
 
 ## Assignment Context
 This project finalises the Week 11 group activity described in the module email and the file titled `Week 11 BIG Task`.
@@ -6,7 +6,7 @@ It builds on the Week 5 jobs dataset work and is organised as a clear presentati
 The analysis covers one hypothesis test, one linear regression model, one classification model, one clustering method, interpretation, audience-focused communication, and reflection.
 
 ## Project Title
-Week 11 modelling, interpretation, and communication project using the cleaned data science jobs dataset.
+Jobs Analyse: Week 11 modelling, interpretation, and communication using the cleaned data science jobs dataset.
 
 ## File Structure
 ```text

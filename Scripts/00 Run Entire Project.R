@@ -1,5 +1,5 @@
 # ==================================================
-# Week 11 Jobs Project
+# Jobs Analyse
 # Script: 00 Run Entire Project.R
 # Purpose: Run the full Week 11 analysis project from setup to
 #          communication outputs.
@@ -214,7 +214,7 @@ for (script_file in script_files) {
   source(file.path(project_paths$scripts, script_file), local = FALSE)
 }
 
-cat("\nWeek 11 jobs project completed successfully.\n")
+cat("\nJobs Analyse completed successfully.\n")
 cat("Project root:", project_root, "\n")
 cat("Tables saved to:", project_paths$outputs_tables, "\n")
 cat("Figures saved to:", project_paths$outputs_figures, "\n")
