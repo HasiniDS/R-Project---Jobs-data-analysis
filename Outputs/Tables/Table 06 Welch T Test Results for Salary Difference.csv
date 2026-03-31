@@ -1,0 +1,2 @@
+test_name,comparison,mean_same_state,mean_different_state,mean_difference,t_statistic,degrees_freedom,p_value,confidence_interval_low,confidence_interval_high,cohens_d
+Welch independent-samples t-test,Same state minus different state,119.31716417910448,126.75526315789473,-7.438098978790251,-2.444770502134761,642.5847332929195,0.014761992427620997,-13.412449831285798,-1.4637481262947032,-0.18611385627133986

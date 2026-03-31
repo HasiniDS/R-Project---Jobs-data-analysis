@@ -1,0 +1,11 @@
+metric,value
+row_count,648
+column_count,28
+exact_duplicate_rows,0
+avg_salary_mean,123.67901234567901
+avg_salary_sd,40.102327278087714
+rating_mean,3.6462962962962964
+rating_zero_count,39
+same_state_one_count,268
+same_state_zero_count,380
+flagged_salary_outliers,41

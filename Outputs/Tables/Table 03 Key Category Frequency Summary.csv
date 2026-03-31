@@ -1,0 +1,36 @@
+variable,category,count
+job_simp,data scientist,436
+job_simp,na,68
+job_simp,analyst,55
+job_simp,data engineer,45
+job_simp,mle,34
+job_simp,manager,7
+job_simp,director,3
+same_state,different_state,380
+same_state,same_state,268
+sector,Information Technology,178
+sector,Business Services,120
+sector,Biotech & Pharmaceuticals,66
+sector,Unknown,60
+sector,Aerospace & Defense,46
+sector,Insurance,32
+sector,Finance,30
+sector,Manufacturing,23
+sector,Health Care,21
+sector,Government,17
+sector,"Oil, Gas, Energy & Utilities",10
+sector,Retail,7
+sector,Telecommunications,7
+sector,Transportation & Logistics,6
+sector,Media,5
+sector,Accounting & Legal,3
+sector,Agriculture & Forestry,3
+sector,Education,3
+sector,Real Estate,3
+sector,Travel & Tourism,3
+sector,"Construction, Repair & Maintenance",2
+sector,Consumer Services,2
+sector,Non-Profit,1
+seniority,na,556
+seniority,senior,91
+seniority,jr,1
