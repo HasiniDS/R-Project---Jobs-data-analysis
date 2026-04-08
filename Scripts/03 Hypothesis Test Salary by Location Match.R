@@ -1,13 +1,13 @@
 # ==================================================
 # Week 11 Data Science Jobs Analysis Project
-# Script: 03_hypothesis_test_salary_by_location_match.R
+# Script: 03 Hypothesis Test Salary by Location Match.R
 # Purpose: Test whether average salary differs between jobs where
 #          the role is in the same state as company headquarters
 #          and jobs where it is not.
-# Inputs:  jobs_data from Script 01 or Data/Clean/Jobs_clean.csv
-# Outputs: table_05_salary_summary_by_same_state_group.csv
-#          table_06_welch_t_test_results_for_salary_difference.csv
-#          figure_07_salary_by_same_state_group.png
+# Inputs:  jobs_data from Script 01 or Data/Clean/Jobs Clean.csv
+# Outputs: Table 05 Salary Summary by Same State Group.csv
+#          Table 06 Welch T Test Results for Salary Difference.csv
+#          Figure 07 Salary by Same State Group.png
 # ==================================================
 
 if (!exists("jobs_data")) {
@@ -45,7 +45,7 @@ hypothesis_group_summary <- hypothesis_test_data %>%
 
 write_output_table(
   hypothesis_group_summary,
-  "table_05_salary_summary_by_same_state_group.csv"
+  "Table 05 Salary Summary by Same State Group.csv"
 )
 
 # --------------------------------------------------
@@ -92,7 +92,7 @@ t_test_results_table <- tibble::tibble(
 
 write_output_table(
   t_test_results_table,
-  "table_06_welch_t_test_results_for_salary_difference.csv"
+  "Table 06 Welch T Test Results for Salary Difference.csv"
 )
 
 # --------------------------------------------------
@@ -194,7 +194,7 @@ salary_same_state_inference_plot <- ggplot(
 
 save_analysis_figure(
   salary_same_state_inference_plot,
-  "figure_07_salary_by_same_state_group.png"
+  "Figure 07 Salary by Same State Group.png"
 )
 
 cat("\nHypothesis test summary:\n")

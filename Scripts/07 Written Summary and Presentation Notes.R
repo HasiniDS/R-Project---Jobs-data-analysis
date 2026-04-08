@@ -1,12 +1,12 @@
 # ==================================================
 # Week 11 Data Science Jobs Analysis Project
-# Script: 07_written_summary_and_presentation_notes.R
+# Script: 07 Written Summary and Presentation Notes.R
 # Purpose: Create the written project outputs for submission and
 #          presentation use.
 # Inputs:  Results objects created in earlier scripts
-# Outputs: week11_key_findings.md
-#          week11_presentation_notes.md
-#          week11_project_snapshot.md
+# Outputs: Week 11 Key Findings.md
+#          Week 11 Presentation Notes.md
+#          Week 11 Project Snapshot.md
 #          README.md
 # ==================================================
 
@@ -20,69 +20,69 @@ if (!exists("project_title")) {
 
 if (!exists("script_files")) {
   script_files <- c(
-    "00_run_entire_project.R",
-    "01_data_quality_review.R",
-    "02_descriptive_figures.R",
-    "03_hypothesis_test_salary_by_location_match.R",
-    "04_linear_regression_average_salary.R",
-    "05_classification_tree_job_category.R",
-    "06_kmeans_clustering_job_profiles.R",
-    "07_written_summary_and_presentation_notes.R"
+    "00 Run Entire Project.R",
+    "01 Data Quality Review.R",
+    "02 Descriptive Figures.R",
+    "03 Hypothesis Test Salary by Location Match.R",
+    "04 Linear Regression Average Salary.R",
+    "05 Classification Tree Job Category.R",
+    "06 K Means Clustering Job Profiles.R",
+    "07 Written Summary and Presentation Notes.R"
   )
 }
 
 if (!exists("table_output_files")) {
   table_output_files <- c(
-    "table_01_dataset_structure_and_quality_summary.csv",
-    "table_02_variable_missingness_summary.csv",
-    "table_03_key_category_frequency_summary.csv",
-    "table_04_descriptive_statistics_for_main_variables.csv",
-    "table_05_salary_summary_by_same_state_group.csv",
-    "table_06_welch_t_test_results_for_salary_difference.csv",
-    "table_07_linear_regression_coefficient_estimates.csv",
-    "table_08_linear_regression_model_fit_statistics.csv",
-    "table_09_variance_inflation_factor_summary.csv",
-    "table_10_classification_sample_class_counts.csv",
-    "table_11_decision_tree_confusion_matrix.csv",
-    "table_12_decision_tree_performance_metrics.csv",
-    "table_13_cluster_selection_diagnostics.csv",
-    "table_14_cluster_profile_summary.csv",
-    "table_15_cluster_membership_counts.csv"
+    "Table 01 Dataset Structure and Quality Summary.csv",
+    "Table 02 Variable Missingness Summary.csv",
+    "Table 03 Key Category Frequency Summary.csv",
+    "Table 04 Descriptive Statistics for Main Variables.csv",
+    "Table 05 Salary Summary by Same State Group.csv",
+    "Table 06 Welch T Test Results for Salary Difference.csv",
+    "Table 07 Linear Regression Coefficient Estimates.csv",
+    "Table 08 Linear Regression Model Fit Statistics.csv",
+    "Table 09 Variance Inflation Factor Summary.csv",
+    "Table 10 Classification Sample Class Counts.csv",
+    "Table 11 Decision Tree Confusion Matrix.csv",
+    "Table 12 Decision Tree Performance Metrics.csv",
+    "Table 13 Cluster Selection Diagnostics.csv",
+    "Table 14 Cluster Profile Summary.csv",
+    "Table 15 Cluster Membership Counts.csv"
   )
 }
 
 if (!exists("figure_output_files")) {
   figure_output_files <- c(
-    "figure_01_average_salary_distribution.png",
-    "figure_02_average_salary_by_main_job_group.png",
-    "figure_03_company_rating_and_average_salary.png",
-    "figure_04_frequency_of_main_job_groups.png",
-    "figure_05_company_age_distribution.png",
-    "figure_06_average_salary_by_same_state_indicator.png",
-    "figure_07_salary_by_same_state_group.png",
-    "figure_08_regression_residuals_versus_fitted_values.png",
-    "figure_09_regression_normal_qq_plot.png",
-    "figure_10_regression_residual_distribution.png",
-    "figure_11_decision_tree_for_job_category_classification.png",
-    "figure_12_kmeans_elbow_curve.png",
-    "figure_13_kmeans_silhouette_comparison.png",
-    "figure_14_cluster_visualisation_in_principal_components.png"
+    "Figure 01 Average Salary Distribution.png",
+    "Figure 02 Average Salary by Main Job Group.png",
+    "Figure 03 Company Rating and Average Salary.png",
+    "Figure 04 Frequency of Main Job Groups.png",
+    "Figure 05 Company Age Distribution.png",
+    "Figure 06 Average Salary by Same State Indicator.png",
+    "Figure 07 Salary by Same State Group.png",
+    "Figure 08 Regression Residuals Versus Fitted Values.png",
+    "Figure 09 Regression Normal QQ Plot.png",
+    "Figure 10 Regression Residual Distribution.png",
+    "Figure 11 Decision Tree for Job Category Classification.png",
+    "Figure 12 K Means Elbow Curve.png",
+    "Figure 13 K Means Silhouette Comparison.png",
+    "Figure 14 Cluster Visualisation in Principal Components.png"
   )
 }
 
 if (!exists("model_output_files")) {
   model_output_files <- c(
-    "classification_tree_model_job_category.rds",
-    "kmeans_clustering_model_job_profiles.rds",
-    "linear_regression_model_average_salary.rds"
+    "Classification Tree Model Job Category.rds",
+    "K Means Clustering Model Job Profiles.rds",
+    "Linear Regression Model Average Salary.rds"
   )
 }
 
 if (!exists("written_output_files")) {
   written_output_files <- c(
-    "week11_key_findings.md",
-    "week11_presentation_notes.md",
-    "week11_project_snapshot.md"
+    "Week 11 Key Findings.md",
+    "Week 11 Presentation Notes.md",
+    "Week 11 Project Snapshot.md"
   )
 }
 
@@ -217,7 +217,7 @@ final_takeaway_sentence <- paste(
 )
 
 # --------------------------------------------------
-# week11_key_findings.md
+# Week 11 Key Findings.md
 # --------------------------------------------------
 
 key_findings_lines <- c(
@@ -231,7 +231,7 @@ key_findings_lines <- c(
   "### Dataset Overview",
   paste0(
     "The analysis used ", nrow(jobs_data), " cleaned job postings and ", ncol(jobs_data),
-    " variables from `Jobs_clean.csv`. The largest job group was `", top_job_label,
+    " variables from `Jobs Clean.csv`. The largest job group was `", top_job_label,
     "` with ", top_job_count$n, " postings, so the class distribution was clearly imbalanced."
   ),
   "The `seniority` field was mostly recorded as `na`, so it was described but not used as a main modelling target. Ratings of 0 were retained because they represent unrated companies rather than missing values.",
@@ -264,11 +264,11 @@ key_findings_lines <- c(
 
 writeLines(
   key_findings_lines,
-  file.path(project_paths$written_outputs, "week11_key_findings.md")
+  file.path(project_paths$written_outputs, "Week 11 Key Findings.md")
 )
 
 # --------------------------------------------------
-# week11_presentation_notes.md
+# Week 11 Presentation Notes.md
 # --------------------------------------------------
 
 presentation_notes_lines <- c(
@@ -343,18 +343,18 @@ presentation_notes_lines <- c(
 
 writeLines(
   presentation_notes_lines,
-  file.path(project_paths$written_outputs, "week11_presentation_notes.md")
+  file.path(project_paths$written_outputs, "Week 11 Presentation Notes.md")
 )
 
 # --------------------------------------------------
-# week11_project_snapshot.md
+# Week 11 Project Snapshot.md
 # --------------------------------------------------
 
 project_snapshot_lines <- c(
   paste("#", project_title),
   "",
   paste0("- Project aim: Complete the Week 11 brief with one hypothesis test, one regression model, one classification tree, one k-means clustering analysis, and clear communication."),
-  paste0("- Dataset overview: ", nrow(jobs_data), " cleaned postings from `Jobs_clean.csv`, with a strongly imbalanced `job_simp` distribution led by `", top_job_label, "`."),
+  paste0("- Dataset overview: ", nrow(jobs_data), " cleaned postings from `Jobs Clean.csv`, with a strongly imbalanced `job_simp` distribution led by `", top_job_label, "`."),
   paste0("- Hypothesis test: ", t_test_result_sentence),
   paste0("- Regression: ", regression_result_sentence),
   paste0("- Classification: ", classification_result_sentence),
@@ -365,7 +365,7 @@ project_snapshot_lines <- c(
 
 writeLines(
   project_snapshot_lines,
-  file.path(project_paths$written_outputs, "week11_project_snapshot.md")
+  file.path(project_paths$written_outputs, "Week 11 Project Snapshot.md")
 )
 
 # --------------------------------------------------
@@ -380,14 +380,14 @@ readme_lines <- c(
   "",
   "## Project Structure",
   "- `Data/Raw/Tabular_DS_Jobs.csv`",
-  "- `Data/Clean/Jobs_clean.csv`",
+  "- `Data/Clean/Jobs Clean.csv`",
   paste0("- `Scripts/", script_files, "`"),
   "- `Outputs/Tables/`",
   "- `Outputs/Figures/`",
   "- `Outputs/Models/`",
-  "- `week11_key_findings.md`",
-  "- `week11_presentation_notes.md`",
-  "- `week11_project_snapshot.md`",
+  "- `Week 11 Key Findings.md`",
+  "- `Week 11 Presentation Notes.md`",
+  "- `Week 11 Project Snapshot.md`",
   "- `README.md`",
   "",
   "## Exact Output File Names",
@@ -405,16 +405,16 @@ readme_lines <- c(
   "",
   "## How to Run",
   "1. Open the `Project Week 11` folder in R or RStudio.",
-  "2. Run `Scripts/00_run_entire_project.R` from top to bottom.",
+  "2. Run `Scripts/00 Run Entire Project.R` from top to bottom.",
   "3. The runner checks that the input files, scripts, key objects, and main outputs all exist before finishing.",
   "",
   "## Outputs to Inspect First",
-  "- `week11_project_snapshot.md` for the shortest project overview.",
-  "- `week11_key_findings.md` for the main written summary.",
-  "- `Outputs/Figures/figure_07_salary_by_same_state_group.png` for the hypothesis test result.",
-  "- `Outputs/Tables/table_08_linear_regression_model_fit_statistics.csv` for the weak regression fit summary.",
-  "- `Outputs/Figures/figure_11_decision_tree_for_job_category_classification.png` and `Outputs/Tables/table_12_decision_tree_performance_metrics.csv` for the classification result.",
-  "- `Outputs/Figures/figure_14_cluster_visualisation_in_principal_components.png` and `Outputs/Tables/table_14_cluster_profile_summary.csv` for the clustering interpretation.",
+  "- `Week 11 Project Snapshot.md` for the shortest project overview.",
+  "- `Week 11 Key Findings.md` for the main written summary.",
+  "- `Outputs/Figures/Figure 07 Salary by Same State Group.png` for the hypothesis test result.",
+  "- `Outputs/Tables/Table 08 Linear Regression Model Fit Statistics.csv` for the weak regression fit summary.",
+  "- `Outputs/Figures/Figure 11 Decision Tree for Job Category Classification.png` and `Outputs/Tables/Table 12 Decision Tree Performance Metrics.csv` for the classification result.",
+  "- `Outputs/Figures/Figure 14 Cluster Visualisation in Principal Components.png` and `Outputs/Tables/Table 14 Cluster Profile Summary.csv` for the clustering interpretation.",
   "",
   "## Interpretation Warning",
   "- The regression model is descriptive and weak overall, not a strong predictive model.",

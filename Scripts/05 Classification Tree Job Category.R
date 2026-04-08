@@ -1,14 +1,14 @@
 # ==================================================
 # Week 11 Data Science Jobs Analysis Project
-# Script: 05_classification_tree_job_category.R
+# Script: 05 Classification Tree Job Category.R
 # Purpose: Fit and evaluate a simple decision tree to classify the
 #          main job categories.
-# Inputs:  jobs_data from Script 01 or Data/Clean/Jobs_clean.csv
-# Outputs: table_10_classification_sample_class_counts.csv
-#          table_11_decision_tree_confusion_matrix.csv
-#          table_12_decision_tree_performance_metrics.csv
-#          figure_11_decision_tree_for_job_category_classification.png
-#          Outputs/Models/classification_tree_model_job_category.rds
+# Inputs:  jobs_data from Script 01 or Data/Clean/Jobs Clean.csv
+# Outputs: Table 10 Classification Sample Class Counts.csv
+#          Table 11 Decision Tree Confusion Matrix.csv
+#          Table 12 Decision Tree Performance Metrics.csv
+#          Figure 11 Decision Tree for Job Category Classification.png
+#          Outputs/Models/Classification Tree Model Job Category.rds
 # ==================================================
 
 if (!exists("jobs_data")) {
@@ -32,7 +32,7 @@ class_counts_table <- jobs_classification_data %>%
 
 write_output_table(
   class_counts_table,
-  "table_10_classification_sample_class_counts.csv"
+  "Table 10 Classification Sample Class Counts.csv"
 )
 
 # --------------------------------------------------
@@ -84,7 +84,7 @@ saveRDS(
   classification_tree_model,
   file.path(
     project_paths$outputs_models,
-    "classification_tree_model_job_category.rds"
+    "Classification Tree Model Job Category.rds"
   )
 )
 
@@ -148,11 +148,11 @@ confusion_matrix_table <- as.data.frame.matrix(confusion_matrix) %>%
 
 write_output_table(
   confusion_matrix_table,
-  "table_11_decision_tree_confusion_matrix.csv"
+  "Table 11 Decision Tree Confusion Matrix.csv"
 )
 write_output_table(
   classification_metrics_table,
-  "table_12_decision_tree_performance_metrics.csv"
+  "Table 12 Decision Tree Performance Metrics.csv"
 )
 
 tree_variable_importance <- tibble::tibble(
@@ -164,7 +164,7 @@ tree_variable_importance <- tibble::tibble(
 png(
   filename = file.path(
     project_paths$outputs_figures,
-    "figure_11_decision_tree_for_job_category_classification.png"
+    "Figure 11 Decision Tree for Job Category Classification.png"
   ),
   width = 11,
   height = 7,

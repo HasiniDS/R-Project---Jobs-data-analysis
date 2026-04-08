@@ -1,7 +1,7 @@
 # Week 11 Data Science Jobs Analysis Project
 
 - Project aim: Complete the Week 11 brief with one hypothesis test, one regression model, one classification tree, one k-means clustering analysis, and clear communication.
-- Dataset overview: 648 cleaned postings from `Jobs_clean.csv`, with a strongly imbalanced `job_simp` distribution led by `data scientist`.
+- Dataset overview: 648 cleaned postings from `Jobs Clean.csv`, with a strongly imbalanced `job_simp` distribution led by `data scientist`.
 - Hypothesis test: Average salary differed between the same-state groups. Postings in the same state as headquarters were 7.44 thousand USD lower on average, with a small effect size (Cohen's d = -0.19).
 - Regression: The linear regression model was weak overall (R-squared = 0.028, adjusted R-squared = 0.006; model p = 0.211), so it should be treated as descriptive rather than strongly predictive.
 - Classification: The decision tree reached 0.775 test accuracy, only slightly above the majority-class baseline of 0.757. The weakest recall was for data engineer, so class imbalance remained a clear limitation.

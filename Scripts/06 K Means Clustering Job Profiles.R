@@ -1,16 +1,16 @@
 # ==================================================
 # Week 11 Data Science Jobs Analysis Project
-# Script: 06_kmeans_clustering_job_profiles.R
+# Script: 06 K Means Clustering Job Profiles.R
 # Purpose: Use k-means clustering to explore useful groupings in
 #          the jobs dataset.
-# Inputs:  jobs_data from Script 01 or Data/Clean/Jobs_clean.csv
-# Outputs: table_13_cluster_selection_diagnostics.csv
-#          table_14_cluster_profile_summary.csv
-#          table_15_cluster_membership_counts.csv
-#          figure_12_kmeans_elbow_curve.png
-#          figure_13_kmeans_silhouette_comparison.png
-#          figure_14_cluster_visualisation_in_principal_components.png
-#          Outputs/Models/kmeans_clustering_model_job_profiles.rds
+# Inputs:  jobs_data from Script 01 or Data/Clean/Jobs Clean.csv
+# Outputs: Table 13 Cluster Selection Diagnostics.csv
+#          Table 14 Cluster Profile Summary.csv
+#          Table 15 Cluster Membership Counts.csv
+#          Figure 12 K Means Elbow Curve.png
+#          Figure 13 K Means Silhouette Comparison.png
+#          Figure 14 Cluster Visualisation in Principal Components.png
+#          Outputs/Models/K Means Clustering Model Job Profiles.rds
 # ==================================================
 
 if (!exists("jobs_data")) {
@@ -88,7 +88,7 @@ cluster_selection_metrics <- cluster_selection_metrics %>%
 
 write_output_table(
   cluster_selection_metrics,
-  "table_13_cluster_selection_diagnostics.csv"
+  "Table 13 Cluster Selection Diagnostics.csv"
 )
 
 # --------------------------------------------------
@@ -102,7 +102,7 @@ saveRDS(
   final_kmeans_model,
   file.path(
     project_paths$outputs_models,
-    "kmeans_clustering_model_job_profiles.rds"
+    "K Means Clustering Model Job Profiles.rds"
   )
 )
 
@@ -134,11 +134,11 @@ cluster_profiles_table <- jobs_clustered_data %>%
 
 write_output_table(
   cluster_profiles_table,
-  "table_14_cluster_profile_summary.csv"
+  "Table 14 Cluster Profile Summary.csv"
 )
 write_output_table(
   cluster_sizes_table,
-  "table_15_cluster_membership_counts.csv"
+  "Table 15 Cluster Membership Counts.csv"
 )
 
 # --------------------------------------------------
@@ -331,15 +331,15 @@ cluster_visualisation_plot <- ggplot(
 
 save_analysis_figure(
   elbow_curve_plot,
-  "figure_12_kmeans_elbow_curve.png"
+  "Figure 12 K Means Elbow Curve.png"
 )
 save_analysis_figure(
   silhouette_summary_plot,
-  "figure_13_kmeans_silhouette_comparison.png"
+  "Figure 13 K Means Silhouette Comparison.png"
 )
 save_analysis_figure(
   cluster_visualisation_plot,
-  "figure_14_cluster_visualisation_in_principal_components.png"
+  "Figure 14 Cluster Visualisation in Principal Components.png"
 )
 
 cat("\nCluster selection metrics:\n")

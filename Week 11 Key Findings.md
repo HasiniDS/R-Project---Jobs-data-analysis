@@ -6,7 +6,7 @@
 This project uses the cleaned jobs dataset to complete the Week 11 brief through one hypothesis test, one linear regression model, one decision tree classifier, one k-means clustering analysis, supporting figures, and clear audience-focused interpretation.
 
 ### Dataset Overview
-The analysis used 648 cleaned job postings and 28 variables from `Jobs_clean.csv`. The largest job group was `data scientist` with 436 postings, so the class distribution was clearly imbalanced.
+The analysis used 648 cleaned job postings and 28 variables from `Jobs Clean.csv`. The largest job group was `data scientist` with 436 postings, so the class distribution was clearly imbalanced.
 The `seniority` field was mostly recorded as `na`, so it was described but not used as a main modelling target. Ratings of 0 were retained because they represent unrated companies rather than missing values.
 
 ### Hypothesis Test

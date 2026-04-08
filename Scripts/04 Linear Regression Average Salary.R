@@ -1,16 +1,16 @@
 # ==================================================
 # Week 11 Data Science Jobs Analysis Project
-# Script: 04_linear_regression_average_salary.R
+# Script: 04 Linear Regression Average Salary.R
 # Purpose: Fit and evaluate one linear regression model for
 #          average salary.
-# Inputs:  jobs_data from Script 01 or Data/Clean/Jobs_clean.csv
-# Outputs: table_07_linear_regression_coefficient_estimates.csv
-#          table_08_linear_regression_model_fit_statistics.csv
-#          table_09_variance_inflation_factor_summary.csv
-#          figure_08_regression_residuals_versus_fitted_values.png
-#          figure_09_regression_normal_qq_plot.png
-#          figure_10_regression_residual_distribution.png
-#          Outputs/Models/linear_regression_model_average_salary.rds
+# Inputs:  jobs_data from Script 01 or Data/Clean/Jobs Clean.csv
+# Outputs: Table 07 Linear Regression Coefficient Estimates.csv
+#          Table 08 Linear Regression Model Fit Statistics.csv
+#          Table 09 Variance Inflation Factor Summary.csv
+#          Figure 08 Regression Residuals Versus Fitted Values.png
+#          Figure 09 Regression Normal QQ Plot.png
+#          Figure 10 Regression Residual Distribution.png
+#          Outputs/Models/Linear Regression Model Average Salary.rds
 # ==================================================
 
 if (!exists("jobs_data")) {
@@ -69,22 +69,22 @@ if (is.matrix(raw_vif_values)) {
 
 write_output_table(
   regression_coefficients_table,
-  "table_07_linear_regression_coefficient_estimates.csv"
+  "Table 07 Linear Regression Coefficient Estimates.csv"
 )
 write_output_table(
   regression_fit_table,
-  "table_08_linear_regression_model_fit_statistics.csv"
+  "Table 08 Linear Regression Model Fit Statistics.csv"
 )
 write_output_table(
   vif_values_table,
-  "table_09_variance_inflation_factor_summary.csv"
+  "Table 09 Variance Inflation Factor Summary.csv"
 )
 
 saveRDS(
   regression_model,
   file.path(
     project_paths$outputs_models,
-    "linear_regression_model_average_salary.rds"
+    "Linear Regression Model Average Salary.rds"
   )
 )
 
@@ -216,15 +216,15 @@ regression_residual_histogram <- ggplot(
 
 save_analysis_figure(
   regression_residual_plot,
-  "figure_08_regression_residuals_versus_fitted_values.png"
+  "Figure 08 Regression Residuals Versus Fitted Values.png"
 )
 save_analysis_figure(
   regression_qq_plot,
-  "figure_09_regression_normal_qq_plot.png"
+  "Figure 09 Regression Normal QQ Plot.png"
 )
 save_analysis_figure(
   regression_residual_histogram,
-  "figure_10_regression_residual_distribution.png"
+  "Figure 10 Regression Residual Distribution.png"
 )
 
 cat("\nLinear regression model summary:\n")

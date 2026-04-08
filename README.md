@@ -5,61 +5,61 @@ This project finalises the Week 11 jobs mini-project using the cleaned Week 5 da
 
 ## Project Structure
 - `Data/Raw/Tabular_DS_Jobs.csv`
-- `Data/Clean/Jobs_clean.csv`
-- `Scripts/00_run_entire_project.R`
-- `Scripts/01_data_quality_review.R`
-- `Scripts/02_descriptive_figures.R`
-- `Scripts/03_hypothesis_test_salary_by_location_match.R`
-- `Scripts/04_linear_regression_average_salary.R`
-- `Scripts/05_classification_tree_job_category.R`
-- `Scripts/06_kmeans_clustering_job_profiles.R`
-- `Scripts/07_written_summary_and_presentation_notes.R`
+- `Data/Clean/Jobs Clean.csv`
+- `Scripts/00 Run Entire Project.R`
+- `Scripts/01 Data Quality Review.R`
+- `Scripts/02 Descriptive Figures.R`
+- `Scripts/03 Hypothesis Test Salary by Location Match.R`
+- `Scripts/04 Linear Regression Average Salary.R`
+- `Scripts/05 Classification Tree Job Category.R`
+- `Scripts/06 K Means Clustering Job Profiles.R`
+- `Scripts/07 Written Summary and Presentation Notes.R`
 - `Outputs/Tables/`
 - `Outputs/Figures/`
 - `Outputs/Models/`
-- `week11_key_findings.md`
-- `week11_presentation_notes.md`
-- `week11_project_snapshot.md`
+- `Week 11 Key Findings.md`
+- `Week 11 Presentation Notes.md`
+- `Week 11 Project Snapshot.md`
 - `README.md`
 
 ## Exact Output File Names
 ### Tables
-- `Outputs/Tables/table_01_dataset_structure_and_quality_summary.csv`
-- `Outputs/Tables/table_02_variable_missingness_summary.csv`
-- `Outputs/Tables/table_03_key_category_frequency_summary.csv`
-- `Outputs/Tables/table_04_descriptive_statistics_for_main_variables.csv`
-- `Outputs/Tables/table_05_salary_summary_by_same_state_group.csv`
-- `Outputs/Tables/table_06_welch_t_test_results_for_salary_difference.csv`
-- `Outputs/Tables/table_07_linear_regression_coefficient_estimates.csv`
-- `Outputs/Tables/table_08_linear_regression_model_fit_statistics.csv`
-- `Outputs/Tables/table_09_variance_inflation_factor_summary.csv`
-- `Outputs/Tables/table_10_classification_sample_class_counts.csv`
-- `Outputs/Tables/table_11_decision_tree_confusion_matrix.csv`
-- `Outputs/Tables/table_12_decision_tree_performance_metrics.csv`
-- `Outputs/Tables/table_13_cluster_selection_diagnostics.csv`
-- `Outputs/Tables/table_14_cluster_profile_summary.csv`
-- `Outputs/Tables/table_15_cluster_membership_counts.csv`
+- `Outputs/Tables/Table 01 Dataset Structure and Quality Summary.csv`
+- `Outputs/Tables/Table 02 Variable Missingness Summary.csv`
+- `Outputs/Tables/Table 03 Key Category Frequency Summary.csv`
+- `Outputs/Tables/Table 04 Descriptive Statistics for Main Variables.csv`
+- `Outputs/Tables/Table 05 Salary Summary by Same State Group.csv`
+- `Outputs/Tables/Table 06 Welch T Test Results for Salary Difference.csv`
+- `Outputs/Tables/Table 07 Linear Regression Coefficient Estimates.csv`
+- `Outputs/Tables/Table 08 Linear Regression Model Fit Statistics.csv`
+- `Outputs/Tables/Table 09 Variance Inflation Factor Summary.csv`
+- `Outputs/Tables/Table 10 Classification Sample Class Counts.csv`
+- `Outputs/Tables/Table 11 Decision Tree Confusion Matrix.csv`
+- `Outputs/Tables/Table 12 Decision Tree Performance Metrics.csv`
+- `Outputs/Tables/Table 13 Cluster Selection Diagnostics.csv`
+- `Outputs/Tables/Table 14 Cluster Profile Summary.csv`
+- `Outputs/Tables/Table 15 Cluster Membership Counts.csv`
 
 ### Figures
-- `Outputs/Figures/figure_01_average_salary_distribution.png`
-- `Outputs/Figures/figure_02_average_salary_by_main_job_group.png`
-- `Outputs/Figures/figure_03_company_rating_and_average_salary.png`
-- `Outputs/Figures/figure_04_frequency_of_main_job_groups.png`
-- `Outputs/Figures/figure_05_company_age_distribution.png`
-- `Outputs/Figures/figure_06_average_salary_by_same_state_indicator.png`
-- `Outputs/Figures/figure_07_salary_by_same_state_group.png`
-- `Outputs/Figures/figure_08_regression_residuals_versus_fitted_values.png`
-- `Outputs/Figures/figure_09_regression_normal_qq_plot.png`
-- `Outputs/Figures/figure_10_regression_residual_distribution.png`
-- `Outputs/Figures/figure_11_decision_tree_for_job_category_classification.png`
-- `Outputs/Figures/figure_12_kmeans_elbow_curve.png`
-- `Outputs/Figures/figure_13_kmeans_silhouette_comparison.png`
-- `Outputs/Figures/figure_14_cluster_visualisation_in_principal_components.png`
+- `Outputs/Figures/Figure 01 Average Salary Distribution.png`
+- `Outputs/Figures/Figure 02 Average Salary by Main Job Group.png`
+- `Outputs/Figures/Figure 03 Company Rating and Average Salary.png`
+- `Outputs/Figures/Figure 04 Frequency of Main Job Groups.png`
+- `Outputs/Figures/Figure 05 Company Age Distribution.png`
+- `Outputs/Figures/Figure 06 Average Salary by Same State Indicator.png`
+- `Outputs/Figures/Figure 07 Salary by Same State Group.png`
+- `Outputs/Figures/Figure 08 Regression Residuals Versus Fitted Values.png`
+- `Outputs/Figures/Figure 09 Regression Normal QQ Plot.png`
+- `Outputs/Figures/Figure 10 Regression Residual Distribution.png`
+- `Outputs/Figures/Figure 11 Decision Tree for Job Category Classification.png`
+- `Outputs/Figures/Figure 12 K Means Elbow Curve.png`
+- `Outputs/Figures/Figure 13 K Means Silhouette Comparison.png`
+- `Outputs/Figures/Figure 14 Cluster Visualisation in Principal Components.png`
 
 ### Models
-- `Outputs/Models/classification_tree_model_job_category.rds`
-- `Outputs/Models/kmeans_clustering_model_job_profiles.rds`
-- `Outputs/Models/linear_regression_model_average_salary.rds`
+- `Outputs/Models/Classification Tree Model Job Category.rds`
+- `Outputs/Models/K Means Clustering Model Job Profiles.rds`
+- `Outputs/Models/Linear Regression Model Average Salary.rds`
 
 ## Packages
 - `dplyr`
@@ -76,16 +76,16 @@ This project finalises the Week 11 jobs mini-project using the cleaned Week 5 da
 
 ## How to Run
 1. Open the `Project Week 11` folder in R or RStudio.
-2. Run `Scripts/00_run_entire_project.R` from top to bottom.
+2. Run `Scripts/00 Run Entire Project.R` from top to bottom.
 3. The runner checks that the input files, scripts, key objects, and main outputs all exist before finishing.
 
 ## Outputs to Inspect First
-- `week11_project_snapshot.md` for the shortest project overview.
-- `week11_key_findings.md` for the main written summary.
-- `Outputs/Figures/figure_07_salary_by_same_state_group.png` for the hypothesis test result.
-- `Outputs/Tables/table_08_linear_regression_model_fit_statistics.csv` for the weak regression fit summary.
-- `Outputs/Figures/figure_11_decision_tree_for_job_category_classification.png` and `Outputs/Tables/table_12_decision_tree_performance_metrics.csv` for the classification result.
-- `Outputs/Figures/figure_14_cluster_visualisation_in_principal_components.png` and `Outputs/Tables/table_14_cluster_profile_summary.csv` for the clustering interpretation.
+- `Week 11 Project Snapshot.md` for the shortest project overview.
+- `Week 11 Key Findings.md` for the main written summary.
+- `Outputs/Figures/Figure 07 Salary by Same State Group.png` for the hypothesis test result.
+- `Outputs/Tables/Table 08 Linear Regression Model Fit Statistics.csv` for the weak regression fit summary.
+- `Outputs/Figures/Figure 11 Decision Tree for Job Category Classification.png` and `Outputs/Tables/Table 12 Decision Tree Performance Metrics.csv` for the classification result.
+- `Outputs/Figures/Figure 14 Cluster Visualisation in Principal Components.png` and `Outputs/Tables/Table 14 Cluster Profile Summary.csv` for the clustering interpretation.
 
 ## Interpretation Warning
 - The regression model is descriptive and weak overall, not a strong predictive model.
