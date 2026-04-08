@@ -5,7 +5,7 @@
 #          to final written outputs.
 # Inputs:  Data/Raw/Tabular_DS_Jobs.csv
 #          Data/Clean/Jobs Clean.csv
-# Outputs: All saved tables, figures, and markdown
+# Outputs: All saved tables, figures, and text
 #          files created in the project folders.
 # ==================================================
 
@@ -112,17 +112,14 @@ figure_output_files <- c(
 )
 
 written_output_files <- c(
-  "Week 11 Key Findings.md",
-  "Week 11 Presentation Notes.md",
-  "Week 11 Project Snapshot.md"
+  "Week 11 Key Findings.txt",
+  "Week 11 Presentation Notes.txt",
+  "Week 11 Project Snapshot.txt"
 )
 
 legacy_written_files <- c(
-  "week11_key_findings.md",
-  "week11_presentation_notes.md",
-  "week11_project_snapshot.md",
-  "Week 11 Key Findings and Interpretation.md",
-  "Week 11 Presentation Speaking Notes.md"
+  "Week 11 Key Findings and Interpretation.txt",
+  "Week 11 Presentation Speaking Notes.txt"
 )
 
 generated_output_directories <- unlist(project_paths[c(
@@ -156,6 +153,17 @@ legacy_written_paths <- file.path(
   c(written_output_files, legacy_written_files)
 )
 unlink(legacy_written_paths[file.exists(legacy_written_paths)], force = TRUE)
+
+legacy_markdown_paths <- list.files(
+  project_paths$written_outputs,
+  pattern = "\\.md$",
+  full.names = TRUE,
+  ignore.case = TRUE
+)
+
+if (length(legacy_markdown_paths) > 0) {
+  unlink(legacy_markdown_paths, force = TRUE)
+}
 
 legacy_presentation_directory <- file.path(project_root, "Presentation")
 legacy_models_directory <- file.path(project_root, "Outputs", "Models")
@@ -409,7 +417,7 @@ expected_output_paths <- c(
   file.path(project_paths$outputs_tables, table_output_files),
   file.path(project_paths$outputs_figures, figure_output_files),
   file.path(project_paths$written_outputs, written_output_files),
-  file.path(project_paths$root, "README.md")
+  file.path(project_paths$root, "Read Me.txt")
 )
 
 missing_output_paths <- expected_output_paths[!file.exists(expected_output_paths)]

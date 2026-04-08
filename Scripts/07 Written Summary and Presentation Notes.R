@@ -4,10 +4,10 @@
 # Purpose: Create the written project outputs for submission and
 #          presentation use.
 # Inputs:  Results objects created in earlier scripts
-# Outputs: Week 11 Key Findings.md
-#          Week 11 Presentation Notes.md
-#          Week 11 Project Snapshot.md
-#          README.md
+# Outputs: Week 11 Key Findings.txt
+#          Week 11 Presentation Notes.txt
+#          Week 11 Project Snapshot.txt
+#          Read Me.txt
 # ==================================================
 
 if (!exists("jobs_data")) {
@@ -72,9 +72,9 @@ if (!exists("figure_output_files")) {
 
 if (!exists("written_output_files")) {
   written_output_files <- c(
-    "Week 11 Key Findings.md",
-    "Week 11 Presentation Notes.md",
-    "Week 11 Project Snapshot.md"
+    "Week 11 Key Findings.txt",
+    "Week 11 Presentation Notes.txt",
+    "Week 11 Project Snapshot.txt"
   )
 }
 
@@ -209,7 +209,7 @@ final_takeaway_sentence <- paste(
 )
 
 # --------------------------------------------------
-# Week 11 Key Findings.md
+# Week 11 Key Findings.txt
 # --------------------------------------------------
 
 key_findings_lines <- c(
@@ -256,11 +256,11 @@ key_findings_lines <- c(
 
 writeLines(
   key_findings_lines,
-  file.path(project_paths$written_outputs, "Week 11 Key Findings.md")
+  file.path(project_paths$written_outputs, "Week 11 Key Findings.txt")
 )
 
 # --------------------------------------------------
-# Week 11 Presentation Notes.md
+# Week 11 Presentation Notes.txt
 # --------------------------------------------------
 
 presentation_notes_lines <- c(
@@ -335,11 +335,11 @@ presentation_notes_lines <- c(
 
 writeLines(
   presentation_notes_lines,
-  file.path(project_paths$written_outputs, "Week 11 Presentation Notes.md")
+  file.path(project_paths$written_outputs, "Week 11 Presentation Notes.txt")
 )
 
 # --------------------------------------------------
-# Week 11 Project Snapshot.md
+# Week 11 Project Snapshot.txt
 # --------------------------------------------------
 
 project_snapshot_lines <- c(
@@ -357,11 +357,11 @@ project_snapshot_lines <- c(
 
 writeLines(
   project_snapshot_lines,
-  file.path(project_paths$written_outputs, "Week 11 Project Snapshot.md")
+  file.path(project_paths$written_outputs, "Week 11 Project Snapshot.txt")
 )
 
 # --------------------------------------------------
-# README.md
+# Read Me.txt
 # --------------------------------------------------
 
 readme_lines <- c(
@@ -377,10 +377,10 @@ readme_lines <- c(
   paste0("- `Scripts/", script_files, "`"),
   "- `Outputs/Tables/`",
   "- `Outputs/Figures/`",
-  "- `Week 11 Key Findings.md`",
-  "- `Week 11 Presentation Notes.md`",
-  "- `Week 11 Project Snapshot.md`",
-  "- `README.md`",
+  "- `Week 11 Key Findings.txt`",
+  "- `Week 11 Presentation Notes.txt`",
+  "- `Week 11 Project Snapshot.txt`",
+  "- `Read Me.txt`",
   "",
   "## Exact Output File Names",
   "### Tables",
@@ -398,8 +398,8 @@ readme_lines <- c(
   "3. The runner checks that the input files, scripts, key objects, and main outputs all exist before finishing.",
   "",
   "## Outputs to Inspect First",
-  "- `Week 11 Project Snapshot.md` for the shortest project overview.",
-  "- `Week 11 Key Findings.md` for the main written summary.",
+  "- `Week 11 Project Snapshot.txt` for the shortest project overview.",
+  "- `Week 11 Key Findings.txt` for the main written summary.",
   "- `Outputs/Figures/Figure 07 Salary by Same State Group.png` for the hypothesis test result.",
   "- `Outputs/Tables/Table 08 Linear Regression Model Fit Statistics.csv` for the weak regression fit summary.",
   "- `Outputs/Figures/Figure 11 Decision Tree for Job Category Classification.png` and `Outputs/Tables/Table 12 Decision Tree Performance Metrics.csv` for the classification result.",
@@ -411,6 +411,6 @@ readme_lines <- c(
   "- The clustering solution is exploratory and should not be treated as proof of fixed job categories."
 )
 
-writeLines(readme_lines, file.path(project_paths$root, "README.md"))
+writeLines(readme_lines, file.path(project_paths$root, "Read Me.txt"))
 
 cat("\nWritten communication files created successfully.\n")
