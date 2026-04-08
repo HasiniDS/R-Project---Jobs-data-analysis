@@ -4,9 +4,9 @@
 # Purpose: Create the written project outputs for submission and
 #          presentation use.
 # Inputs:  Results objects created in earlier scripts
-# Outputs: Presentation/week11_key_findings.md
-#          Presentation/week11_presentation_notes.md
-#          Presentation/week11_project_snapshot.md
+# Outputs: week11_key_findings.md
+#          week11_presentation_notes.md
+#          week11_project_snapshot.md
 #          README.md
 # ==================================================
 
@@ -78,8 +78,8 @@ if (!exists("model_output_files")) {
   )
 }
 
-if (!exists("presentation_output_files")) {
-  presentation_output_files <- c(
+if (!exists("written_output_files")) {
+  written_output_files <- c(
     "week11_key_findings.md",
     "week11_presentation_notes.md",
     "week11_project_snapshot.md"
@@ -264,7 +264,7 @@ key_findings_lines <- c(
 
 writeLines(
   key_findings_lines,
-  file.path(project_paths$presentation, "week11_key_findings.md")
+  file.path(project_paths$written_outputs, "week11_key_findings.md")
 )
 
 # --------------------------------------------------
@@ -343,7 +343,7 @@ presentation_notes_lines <- c(
 
 writeLines(
   presentation_notes_lines,
-  file.path(project_paths$presentation, "week11_presentation_notes.md")
+  file.path(project_paths$written_outputs, "week11_presentation_notes.md")
 )
 
 # --------------------------------------------------
@@ -365,7 +365,7 @@ project_snapshot_lines <- c(
 
 writeLines(
   project_snapshot_lines,
-  file.path(project_paths$presentation, "week11_project_snapshot.md")
+  file.path(project_paths$written_outputs, "week11_project_snapshot.md")
 )
 
 # --------------------------------------------------
@@ -385,9 +385,9 @@ readme_lines <- c(
   "- `Outputs/Tables/`",
   "- `Outputs/Figures/`",
   "- `Outputs/Models/`",
-  "- `Presentation/week11_key_findings.md`",
-  "- `Presentation/week11_presentation_notes.md`",
-  "- `Presentation/week11_project_snapshot.md`",
+  "- `week11_key_findings.md`",
+  "- `week11_presentation_notes.md`",
+  "- `week11_project_snapshot.md`",
   "- `README.md`",
   "",
   "## Exact Output File Names",
@@ -409,8 +409,8 @@ readme_lines <- c(
   "3. The runner checks that the input files, scripts, key objects, and main outputs all exist before finishing.",
   "",
   "## Outputs to Inspect First",
-  "- `Presentation/week11_project_snapshot.md` for the shortest project overview.",
-  "- `Presentation/week11_key_findings.md` for the main written summary.",
+  "- `week11_project_snapshot.md` for the shortest project overview.",
+  "- `week11_key_findings.md` for the main written summary.",
   "- `Outputs/Figures/figure_07_salary_by_same_state_group.png` for the hypothesis test result.",
   "- `Outputs/Tables/table_08_linear_regression_model_fit_statistics.csv` for the weak regression fit summary.",
   "- `Outputs/Figures/figure_11_decision_tree_for_job_category_classification.png` and `Outputs/Tables/table_12_decision_tree_performance_metrics.csv` for the classification result.",

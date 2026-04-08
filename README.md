@@ -17,9 +17,9 @@ This project finalises the Week 11 jobs mini-project using the cleaned Week 5 da
 - `Outputs/Tables/`
 - `Outputs/Figures/`
 - `Outputs/Models/`
-- `Presentation/week11_key_findings.md`
-- `Presentation/week11_presentation_notes.md`
-- `Presentation/week11_project_snapshot.md`
+- `week11_key_findings.md`
+- `week11_presentation_notes.md`
+- `week11_project_snapshot.md`
 - `README.md`
 
 ## Exact Output File Names
@@ -80,8 +80,8 @@ This project finalises the Week 11 jobs mini-project using the cleaned Week 5 da
 3. The runner checks that the input files, scripts, key objects, and main outputs all exist before finishing.
 
 ## Outputs to Inspect First
-- `Presentation/week11_project_snapshot.md` for the shortest project overview.
-- `Presentation/week11_key_findings.md` for the main written summary.
+- `week11_project_snapshot.md` for the shortest project overview.
+- `week11_key_findings.md` for the main written summary.
 - `Outputs/Figures/figure_07_salary_by_same_state_group.png` for the hypothesis test result.
 - `Outputs/Tables/table_08_linear_regression_model_fit_statistics.csv` for the weak regression fit summary.
 - `Outputs/Figures/figure_11_decision_tree_for_job_category_classification.png` and `Outputs/Tables/table_12_decision_tree_performance_metrics.csv` for the classification result.

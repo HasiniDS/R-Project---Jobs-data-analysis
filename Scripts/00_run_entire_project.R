@@ -25,7 +25,7 @@ clean_data_filename <- "Jobs_clean.csv"
 current_directory <- normalizePath(getwd(), winslash = "/", mustWork = TRUE)
 
 has_project_structure <- function(path) {
-  all(dir.exists(file.path(path, c("Data", "Scripts", "Outputs", "Presentation"))))
+  all(dir.exists(file.path(path, c("Data", "Scripts", "Outputs"))))
 }
 
 if (has_project_structure(current_directory)) {
@@ -57,7 +57,7 @@ project_paths <- list(
   outputs_tables = file.path(project_root, "Outputs", "Tables"),
   outputs_figures = file.path(project_root, "Outputs", "Figures"),
   outputs_models = file.path(project_root, "Outputs", "Models"),
-  presentation = file.path(project_root, "Presentation")
+  written_outputs = project_root
 )
 
 raw_data_path <- file.path(project_paths$data_raw, raw_data_filename)
@@ -118,13 +118,13 @@ model_output_files <- c(
   "linear_regression_model_average_salary.rds"
 )
 
-presentation_output_files <- c(
+written_output_files <- c(
   "week11_key_findings.md",
   "week11_presentation_notes.md",
   "week11_project_snapshot.md"
 )
 
-legacy_presentation_files <- c(
+legacy_written_files <- c(
   "Week 11 Key Findings and Interpretation.md",
   "Week 11 Presentation Speaking Notes.md"
 )
@@ -132,8 +132,7 @@ legacy_presentation_files <- c(
 generated_output_directories <- unlist(project_paths[c(
   "outputs_tables",
   "outputs_figures",
-  "outputs_models",
-  "presentation"
+  "outputs_models"
 )])
 
 for (output_dir in generated_output_directories) {
@@ -158,11 +157,17 @@ for (output_dir in unlist(project_paths[c(
   clear_directory_files(output_dir)
 }
 
-legacy_presentation_paths <- file.path(
-  project_paths$presentation,
-  c(presentation_output_files, legacy_presentation_files)
+legacy_written_paths <- file.path(
+  project_paths$written_outputs,
+  c(written_output_files, legacy_written_files)
 )
-unlink(legacy_presentation_paths[file.exists(legacy_presentation_paths)], force = TRUE)
+unlink(legacy_written_paths[file.exists(legacy_written_paths)], force = TRUE)
+
+legacy_presentation_directory <- file.path(project_root, "Presentation")
+
+if (dir.exists(legacy_presentation_directory)) {
+  unlink(legacy_presentation_directory, recursive = TRUE, force = TRUE)
+}
 
 required_input_files <- c(raw_data_path, clean_data_path)
 missing_input_files <- required_input_files[!file.exists(required_input_files)]
@@ -405,7 +410,7 @@ expected_output_paths <- c(
   file.path(project_paths$outputs_tables, table_output_files),
   file.path(project_paths$outputs_figures, figure_output_files),
   file.path(project_paths$outputs_models, model_output_files),
-  file.path(project_paths$presentation, presentation_output_files),
+  file.path(project_paths$written_outputs, written_output_files),
   file.path(project_paths$root, "README.md")
 )
 
@@ -439,4 +444,4 @@ cat("Project root:", project_root, "\n")
 cat("Tables saved to:", project_paths$outputs_tables, "\n")
 cat("Figures saved to:", project_paths$outputs_figures, "\n")
 cat("Models saved to:", project_paths$outputs_models, "\n")
-cat("Written outputs saved to:", project_paths$presentation, "\n")
+cat("Written outputs saved to:", project_paths$written_outputs, "\n")
