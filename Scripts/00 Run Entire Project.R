@@ -5,7 +5,7 @@
 #          to final saved outputs.
 # Inputs:  Data/Raw/Tabular_DS_Jobs.csv
 #          Data/Clean/Jobs Clean.csv
-# Outputs: All saved tables and figures created
+# Outputs: All saved tables, figures, and the project README
 #          in the project folders.
 # ==================================================
 
@@ -136,11 +136,16 @@ for (output_dir in unlist(project_paths[c(
   clear_directory_files(output_dir)
 }
 
-legacy_text_or_markdown_paths <- list.files(
+root_text_or_markdown_paths <- list.files(
   project_root,
   pattern = "\\.(txt|md)$",
   full.names = TRUE,
   ignore.case = TRUE
+)
+
+legacy_text_or_markdown_paths <- setdiff(
+  root_text_or_markdown_paths,
+  file.path(project_root, "README.md")
 )
 
 if (length(legacy_text_or_markdown_paths) > 0) {
@@ -415,7 +420,8 @@ existing_output_directories <- generated_output_directories[
 
 expected_output_paths <- c(
   file.path(project_paths$outputs_tables, table_output_files),
-  file.path(project_paths$outputs_figures, figure_output_files)
+  file.path(project_paths$outputs_figures, figure_output_files),
+  file.path(project_paths$root, "README.md")
 )
 
 missing_output_paths <- expected_output_paths[!file.exists(expected_output_paths)]
