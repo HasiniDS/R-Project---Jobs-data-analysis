@@ -367,9 +367,12 @@ save_analysis_figure(
   height = 7.4
 )
 
-cat("\nCluster selection metrics:\n")
+writeLines("")
+writeLines("Cluster selection metrics:")
 print(cluster_selection_metrics)
-cat("\nFinal k selected:", final_k, "\n")
-cat("Cluster selection note:", cluster_k_justification, "\n")
-cat("\nCluster profiles:\n")
+writeLines("")
+writeLines(paste0("Final k selected: ", final_k))
+writeLines(paste0("Cluster selection note: ", cluster_k_justification))
+writeLines("")
+writeLines("Cluster profiles:")
 print(cluster_profiles_table)

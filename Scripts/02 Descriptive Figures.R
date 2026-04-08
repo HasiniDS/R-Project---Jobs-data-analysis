@@ -570,4 +570,5 @@ save_analysis_figure(
   height = 6.4
 )
 
-cat("\nVisual exploration outputs saved.\n")
+writeLines("")
+writeLines("Visual exploration outputs saved.")

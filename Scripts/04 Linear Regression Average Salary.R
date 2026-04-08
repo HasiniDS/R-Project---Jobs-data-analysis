@@ -256,6 +256,7 @@ save_analysis_figure(
   height = 6.4
 )
 
-cat("\nLinear regression model summary:\n")
+writeLines("")
+writeLines("Linear regression model summary:")
 print(regression_model_summary)
 print(regression_fit_table)

@@ -211,16 +211,15 @@ save_analysis_figure(
   height = 6.5
 )
 
-cat("\nHypothesis test summary:\n")
+writeLines("")
+writeLines("Hypothesis test summary:")
 print(hypothesis_group_summary)
 print(t_test_results_table)
 
 if (t_test_object$p.value < 0.05) {
-  cat(
-    "\nThere is evidence of a salary difference between the two same_state groups.\n"
-  )
+  writeLines("")
+  writeLines("There is evidence of a salary difference between the two same_state groups.")
 } else {
-  cat(
-    "\nThere is not enough evidence to say that average salary differs by same_state.\n"
-  )
+  writeLines("")
+  writeLines("There is not enough evidence to say that average salary differs by same_state.")
 }

@@ -15,10 +15,14 @@
 
 jobs_data <- readr::read_csv(clean_data_path, show_col_types = FALSE)
 
-cat("\nDataset structure check:\n")
+writeLines("")
+writeLines("Dataset structure check:")
 dplyr::glimpse(jobs_data)
 
-cat("\nDataset dimensions:", nrow(jobs_data), "rows and", ncol(jobs_data), "columns.\n")
+writeLines("")
+writeLines(
+  paste0("Dataset dimensions: ", nrow(jobs_data), " rows and ", ncol(jobs_data), " columns.")
+)
 
 # Notes for interpretation:
 # - job_simp is clearly imbalanced, with data scientist roles dominating.
@@ -103,11 +107,13 @@ write_output_table(
   "Table 03 Key Category Frequency Summary.csv"
 )
 
-cat("\nExact duplicate rows:", exact_duplicate_rows, "\n")
-cat("Missing company_age values:", sum(is.na(jobs_data$company_age)), "\n")
-cat("Top job_simp counts:\n")
+writeLines("")
+writeLines(paste0("Exact duplicate rows: ", exact_duplicate_rows))
+writeLines(paste0("Missing company_age values: ", sum(is.na(jobs_data$company_age))))
+writeLines("Top job_simp counts:")
 print(jobs_data %>% count(job_simp, sort = TRUE))
 
 jobs_analysis_data <- add_model_fields(jobs_data)
 
-cat("\nThe cleaned analysis dataset is ready for the Week 11 tasks.\n")
+writeLines("")
+writeLines("The cleaned analysis dataset is ready for the Week 11 tasks.")

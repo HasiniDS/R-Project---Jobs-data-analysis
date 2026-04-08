@@ -422,4 +422,5 @@ readme_lines <- c(
 
 writeLines(readme_lines, file.path(project_paths$root, "Read Me.txt"))
 
-cat("\nWritten communication files created successfully.\n")
+writeLines("")
+writeLines("Written communication files created successfully.")
