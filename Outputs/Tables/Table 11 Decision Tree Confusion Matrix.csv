@@ -1,5 +1,5 @@
-actual_class,data scientist,analyst,data engineer,mle
-data scientist,125,3,0,3
-analyst,11,6,0,0
-data engineer,12,2,0,0
-mle,8,0,0,3
+actual_class,Data Scientist,Analyst,Data Engineer,MLE
+Data Scientist,125,3,0,3
+Analyst,11,6,0,0
+Data Engineer,12,2,0,0
+MLE,8,0,0,3

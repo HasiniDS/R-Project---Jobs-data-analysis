@@ -17,7 +17,11 @@ if (!exists("jobs_data")) {
 jobs_classification_data <- add_model_fields(jobs_data) %>%
   filter(job_simp %in% selected_job_groups) %>%
   mutate(
-    job_simp = factor(job_simp, levels = selected_job_groups),
+    job_simp = factor(
+      job_simp,
+      levels = selected_job_groups,
+      labels = clean_label_text(selected_job_groups)
+    ),
     row_id = row_number()
   )
 
@@ -64,17 +68,36 @@ test_data <- jobs_classification_data %>%
 # to predict job category before salary is known, avg_salary should be
 # removed and treated as a sensitivity check.
 classification_salary_note <- paste(
-  "avg_salary is included here because the classifier is describing observed",
+  "Average salary is included here because the classifier is describing observed",
   "differences between completed job postings.",
-  "A cleaner deployment-style alternative would remove avg_salary if job type",
+  "A cleaner deployment-style alternative would remove average salary if job type",
   "had to be predicted before salary information is available."
 )
 
+create_tree_display_data <- function(data_object) {
+  data_object %>%
+    transmute(
+      `Job Group` = job_simp,
+      `Company Rating` = rating,
+      `Company Age` = company_age_imputed,
+      `Same State Match` = factor(same_state, levels = c(0, 1), labels = c("No", "Yes")),
+      Python = factor(python, levels = c(0, 1), labels = c("No", "Yes")),
+      Excel = factor(excel, levels = c(0, 1), labels = c("No", "Yes")),
+      Hadoop = factor(hadoop, levels = c(0, 1), labels = c("No", "Yes")),
+      Spark = factor(spark, levels = c(0, 1), labels = c("No", "Yes")),
+      AWS = factor(aws, levels = c(0, 1), labels = c("No", "Yes")),
+      Tableau = factor(tableau, levels = c(0, 1), labels = c("No", "Yes")),
+      `Big Data` = factor(big_data, levels = c(0, 1), labels = c("No", "Yes")),
+      `Average Salary` = avg_salary
+    )
+}
+
+classification_train_display <- create_tree_display_data(train_data)
+classification_test_display <- create_tree_display_data(test_data)
+
 classification_tree_model <- rpart::rpart(
-  job_simp ~ rating + company_age_imputed + same_state +
-    python + excel + hadoop + spark + aws + tableau + big_data +
-    avg_salary,
-  data = train_data,
+  `Job Group` ~ .,
+  data = classification_train_display,
   method = "class",
   control = rpart.control(cp = 0.001, maxdepth = 6, minsplit = 8)
 )
@@ -85,7 +108,7 @@ classification_tree_model <- rpart::rpart(
 
 test_predictions <- predict(
   classification_tree_model,
-  newdata = test_data,
+  newdata = classification_test_display,
   type = "class"
 )
 

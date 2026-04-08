@@ -80,9 +80,9 @@ if (!exists("written_output_files")) {
 
 if (!exists("classification_salary_note")) {
   classification_salary_note <- paste(
-    "avg_salary is included here because the classifier is describing observed",
+    "Average salary is included here because the classifier is describing observed",
     "differences between completed job postings.",
-    "A cleaner deployment-style alternative would remove avg_salary if job type",
+    "A cleaner deployment-style alternative would remove average salary if job type",
     "had to be predicted before salary information is available."
   )
 }
@@ -103,7 +103,7 @@ top_job_count <- jobs_data %>%
   count(job_simp, sort = TRUE) %>%
   slice(1)
 
-top_job_label <- gsub("_", " ", top_job_count$job_simp)
+top_job_label <- clean_label_text(top_job_count$job_simp)
 
 t_test_p_value <- t_test_results_table$p_value[1]
 t_test_difference <- t_test_results_table$mean_difference[1]
@@ -199,7 +199,7 @@ clustering_result_sentence <- paste0(
 )
 
 largest_limitation_sentence <- paste(
-  "The largest limitation is the strong class imbalance in job_simp,",
+  "The largest limitation is the strong class imbalance in the main job group categories,",
   "combined with sparse seniority data and a weak salary regression fit."
 )
 
@@ -244,8 +244,8 @@ key_findings_lines <- c(
   "The clustering result should still be treated as exploratory rather than definitive.",
   "",
   "### Limitations",
-  "- `job_simp` was highly imbalanced, which affected the classification results and limited the reliability of smaller classes.",
-  "- `company_age` required median imputation to keep the modelling sample stable.",
+  "- The main job group variable was highly imbalanced, which affected the classification results and limited the reliability of smaller classes.",
+  "- Company age required median imputation to keep the modelling sample stable.",
   "- `seniority` was too sparse to support reliable modelling.",
   "- The regression remained weak overall, so it should not be treated as a strong predictive model.",
   "- The clustering solution is an exploratory grouping rather than proof of fixed job categories.",
@@ -295,7 +295,7 @@ presentation_notes_lines <- c(
   "",
   "**Recommendations**",
   "- Collect richer variables such as more detailed location, experience, and employer attributes.",
-  "- If classification becomes a deployment task, rerun it without avg_salary as a predictor and compare the drop in performance.",
+  "- If classification becomes a deployment task, rerun it without average salary as a predictor and compare the drop in performance.",
   "",
   "## Stakeholder Audience",
   "**Opening**",
@@ -355,7 +355,7 @@ project_snapshot_lines <- c(
   paste("#", project_title),
   "",
   paste0("- Project aim: Complete the Week 11 brief with one hypothesis test, one regression model, one classification tree, one k-means clustering analysis, and clear communication."),
-  paste0("- Dataset overview: ", nrow(jobs_data), " cleaned postings from `Jobs Clean.csv`, with a strongly imbalanced `job_simp` distribution led by `", top_job_label, "`."),
+  paste0("- Dataset overview: ", nrow(jobs_data), " cleaned postings from `Jobs Clean.csv`, with a strongly imbalanced main job group distribution led by `", top_job_label, "`."),
   paste0("- Hypothesis test: ", t_test_result_sentence),
   paste0("- Regression: ", regression_result_sentence),
   paste0("- Classification: ", classification_result_sentence),

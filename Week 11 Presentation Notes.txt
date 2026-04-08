@@ -16,20 +16,20 @@ This project applied a Welch t-test, one linear regression model, one decision t
 **Key findings**
 - Average salary differed between the same-state groups. Postings in the same state as headquarters were 7.44 thousand USD lower on average, with a small effect size (Cohen's d = -0.19).
 - The linear regression model was weak overall (R-squared = 0.028, adjusted R-squared = 0.006; model p = 0.211), so it should be treated as descriptive rather than strongly predictive.
-- The decision tree reached 0.775 test accuracy, only slightly above the majority-class baseline of 0.757. The weakest recall was for data engineer, so class imbalance remained a clear limitation.
+- The decision tree reached 0.775 test accuracy, only slightly above the majority-class baseline of 0.757. The weakest recall was for Data Engineer, so class imbalance remained a clear limitation.
 - The final k-means solution used k = 2. Cluster 2 had the higher mean salary at 125.0 thousand USD, but the clearer separation came from differences in spark and hadoop.
 
 **What the models mean**
 The test addresses a two-group salary question, the regression summarises conditional salary associations, the decision tree shows which observed posting characteristics separate the main job groups, and clustering provides an exploratory map of broader job profiles.
 
 **Limitations**
-- avg_salary is included here because the classifier is describing observed differences between completed job postings. A cleaner deployment-style alternative would remove avg_salary if job type had to be predicted before salary information is available.
+- Average salary is included here because the classifier is describing observed differences between completed job postings. A cleaner deployment-style alternative would remove average salary if job type had to be predicted before salary information is available.
 - k = 2 was retained because it had the strongest silhouette width, the elbow curve started to flatten after two clusters, and the two-cluster solution remained easiest to interpret as a broad skill-mix split.
 - Seniority was too sparse for reliable modelling, and the regression fit remained weak.
 
 **Recommendations**
 - Collect richer variables such as more detailed location, experience, and employer attributes.
-- If classification becomes a deployment task, rerun it without avg_salary as a predictor and compare the drop in performance.
+- If classification becomes a deployment task, rerun it without average salary as a predictor and compare the drop in performance.
 
 ## Stakeholder Audience
 **Opening**
@@ -38,7 +38,7 @@ This project was designed to explain what the cleaned jobs dataset can say about
 **Key findings**
 - Average salary differed between the same-state groups. Postings in the same state as headquarters were 7.44 thousand USD lower on average, with a small effect size (Cohen's d = -0.19).
 - The linear regression model was weak overall (R-squared = 0.028, adjusted R-squared = 0.006; model p = 0.211), so it should be treated as descriptive rather than strongly predictive.
-- The decision tree reached 0.775 test accuracy, only slightly above the majority-class baseline of 0.757. The weakest recall was for data engineer, so class imbalance remained a clear limitation.
+- The decision tree reached 0.775 test accuracy, only slightly above the majority-class baseline of 0.757. The weakest recall was for Data Engineer, so class imbalance remained a clear limitation.
 - The final k-means solution used k = 2. Cluster 2 had the higher mean salary at 125.0 thousand USD, but the clearer separation came from differences in spark and hadoop.
 
 **What the models mean**
