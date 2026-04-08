@@ -2,11 +2,11 @@
 # Week 11 Data Science Jobs Analysis Project
 # Script: 00 Run Entire Project.R
 # Purpose: Run the full Week 11 jobs analysis project from setup
-#          to final written outputs.
+#          to final saved outputs.
 # Inputs:  Data/Raw/Tabular_DS_Jobs.csv
 #          Data/Clean/Jobs Clean.csv
-# Outputs: All saved tables, figures, and text
-#          files created in the project folders.
+# Outputs: All saved tables and figures created
+#          in the project folders.
 # ==================================================
 
 rm(list = ls())
@@ -55,8 +55,7 @@ project_paths <- list(
   data_clean = file.path(project_root, "Data", "Clean"),
   scripts = file.path(project_root, "Scripts"),
   outputs_tables = file.path(project_root, "Outputs", "Tables"),
-  outputs_figures = file.path(project_root, "Outputs", "Figures"),
-  written_outputs = project_root
+  outputs_figures = file.path(project_root, "Outputs", "Figures")
 )
 
 raw_data_path <- file.path(project_paths$data_raw, raw_data_filename)
@@ -111,17 +110,6 @@ figure_output_files <- c(
   "Figure 14 Cluster Visualisation in Principal Components.png"
 )
 
-written_output_files <- c(
-  "Week 11 Key Findings.txt",
-  "Week 11 Presentation Notes.txt",
-  "Week 11 Project Snapshot.txt"
-)
-
-legacy_written_files <- c(
-  "Week 11 Key Findings and Interpretation.txt",
-  "Week 11 Presentation Speaking Notes.txt"
-)
-
 generated_output_directories <- unlist(project_paths[c(
   "outputs_tables",
   "outputs_figures"
@@ -148,21 +136,15 @@ for (output_dir in unlist(project_paths[c(
   clear_directory_files(output_dir)
 }
 
-legacy_written_paths <- file.path(
-  project_paths$written_outputs,
-  c(written_output_files, legacy_written_files)
-)
-unlink(legacy_written_paths[file.exists(legacy_written_paths)], force = TRUE)
-
-legacy_markdown_paths <- list.files(
-  project_paths$written_outputs,
-  pattern = "\\.md$",
+legacy_text_or_markdown_paths <- list.files(
+  project_root,
+  pattern = "\\.(txt|md)$",
   full.names = TRUE,
   ignore.case = TRUE
 )
 
-if (length(legacy_markdown_paths) > 0) {
-  unlink(legacy_markdown_paths, force = TRUE)
+if (length(legacy_text_or_markdown_paths) > 0) {
+  unlink(legacy_text_or_markdown_paths, force = TRUE)
 }
 
 legacy_presentation_directory <- file.path(project_root, "Presentation")
@@ -338,7 +320,7 @@ save_analysis_figure <- function(plot_object,
                                  filename,
                                  width = 10.8,
                                  height = 6.4,
-                                 dpi = 320) {
+                                 dpi = 360) {
   ggplot2::ggsave(
     filename = file.path(project_paths$outputs_figures, filename),
     plot = plot_object,
@@ -419,7 +401,8 @@ required_result_objects <- c(
   "regression_model",
   "classification_tree_model",
   "final_kmeans_model",
-  "cluster_profiles_table"
+  "cluster_profiles_table",
+  "final_project_summary_table"
 )
 
 missing_result_objects <- required_result_objects[
@@ -432,9 +415,7 @@ existing_output_directories <- generated_output_directories[
 
 expected_output_paths <- c(
   file.path(project_paths$outputs_tables, table_output_files),
-  file.path(project_paths$outputs_figures, figure_output_files),
-  file.path(project_paths$written_outputs, written_output_files),
-  file.path(project_paths$root, "Read Me.txt")
+  file.path(project_paths$outputs_figures, figure_output_files)
 )
 
 missing_output_paths <- expected_output_paths[!file.exists(expected_output_paths)]
@@ -468,4 +449,3 @@ writeLines(paste0(project_title, " completed successfully."))
 writeLines(paste0("Project root: ", project_root))
 writeLines(paste0("Tables saved to: ", project_paths$outputs_tables))
 writeLines(paste0("Figures saved to: ", project_paths$outputs_figures))
-writeLines(paste0("Written outputs saved to: ", project_paths$written_outputs))

@@ -183,7 +183,7 @@ png(
   width = 14,
   height = 9.2,
   units = "in",
-  res = 300,
+  res = 360,
   bg = "white"
 )
 par(mar = c(1, 1, 3.2, 1))
