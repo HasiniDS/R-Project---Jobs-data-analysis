@@ -1,16 +1,16 @@
 # ==================================================
-# Jobs Analyse
-# Script: 02 Descriptive Figures.R
+# Week 11 Data Science Jobs Analysis Project
+# Script: 02_descriptive_figures.R
 # Purpose: Create descriptive summaries and clean visualisations
 #          that support the later modelling choices.
-# Inputs:  jobs_data from Script 01 or Data/Clean/Data Science Jobs Dataset - Clean.csv
-# Outputs: Table 04 Descriptive Statistics for Main Variables.csv
-#          Figure 01 Average Salary Distribution.png
-#          Figure 02 Average Salary by Main Job Group.png
-#          Figure 03 Company Rating and Average Salary.png
-#          Figure 04 Frequency of Main Job Groups.png
-#          Figure 05 Company Age Distribution.png
-#          Figure 06 Average Salary by Same State Indicator.png
+# Inputs:  jobs_data from Script 01 or Data/Clean/Jobs_clean.csv
+# Outputs: table_04_descriptive_statistics_for_main_variables.csv
+#          figure_01_average_salary_distribution.png
+#          figure_02_average_salary_by_main_job_group.png
+#          figure_03_company_rating_and_average_salary.png
+#          figure_04_frequency_of_main_job_groups.png
+#          figure_05_company_age_distribution.png
+#          figure_06_average_salary_by_same_state_indicator.png
 # ==================================================
 
 if (!exists("jobs_data")) {
@@ -61,7 +61,7 @@ descriptive_summary_table <- tibble::tibble(
 
 write_output_table(
   descriptive_summary_table,
-  "Table 04 Descriptive Statistics for Main Variables.csv"
+  "table_04_descriptive_statistics_for_main_variables.csv"
 )
 
 # --------------------------------------------------
@@ -403,27 +403,27 @@ salary_by_same_state_plot <- ggplot(
 
 save_analysis_figure(
   salary_histogram_plot,
-  "Figure 01 Average Salary Distribution.png"
+  "figure_01_average_salary_distribution.png"
 )
 save_analysis_figure(
   salary_by_job_type_plot,
-  "Figure 02 Average Salary by Main Job Group.png"
+  "figure_02_average_salary_by_main_job_group.png"
 )
 save_analysis_figure(
   rating_vs_salary_plot,
-  "Figure 03 Company Rating and Average Salary.png"
+  "figure_03_company_rating_and_average_salary.png"
 )
 save_analysis_figure(
   job_type_counts_plot,
-  "Figure 04 Frequency of Main Job Groups.png"
+  "figure_04_frequency_of_main_job_groups.png"
 )
 save_analysis_figure(
   company_age_histogram_plot,
-  "Figure 05 Company Age Distribution.png"
+  "figure_05_company_age_distribution.png"
 )
 save_analysis_figure(
   salary_by_same_state_plot,
-  "Figure 06 Average Salary by Same State Indicator.png"
+  "figure_06_average_salary_by_same_state_indicator.png"
 )
 
 cat("\nVisual exploration outputs saved.\n")

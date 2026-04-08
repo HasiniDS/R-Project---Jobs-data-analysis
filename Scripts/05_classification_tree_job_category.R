@@ -1,14 +1,14 @@
 # ==================================================
-# Jobs Analyse
-# Script: 05 Classification Tree - Job Category.R
+# Week 11 Data Science Jobs Analysis Project
+# Script: 05_classification_tree_job_category.R
 # Purpose: Fit and evaluate a simple decision tree to classify the
 #          main job categories.
-# Inputs:  jobs_data from Script 01 or Data/Clean/Data Science Jobs Dataset - Clean.csv
-# Outputs: Table 10 Classification Sample Class Counts.csv
-#          Table 11 Decision Tree Confusion Matrix.csv
-#          Table 12 Decision Tree Performance Metrics.csv
-#          Figure 11 Decision Tree for Job Category Classification.png
-#          Outputs/Models/Classification Tree Model - Job Category.rds
+# Inputs:  jobs_data from Script 01 or Data/Clean/Jobs_clean.csv
+# Outputs: table_10_classification_sample_class_counts.csv
+#          table_11_decision_tree_confusion_matrix.csv
+#          table_12_decision_tree_performance_metrics.csv
+#          figure_11_decision_tree_for_job_category_classification.png
+#          Outputs/Models/classification_tree_model_job_category.rds
 # ==================================================
 
 if (!exists("jobs_data")) {
@@ -32,7 +32,7 @@ class_counts_table <- jobs_classification_data %>%
 
 write_output_table(
   class_counts_table,
-  "Table 10 Classification Sample Class Counts.csv"
+  "table_10_classification_sample_class_counts.csv"
 )
 
 # --------------------------------------------------
@@ -60,6 +60,17 @@ test_data <- jobs_classification_data %>%
 # Fit the decision tree
 # --------------------------------------------------
 
+# avg_salary is retained because this tree is being used as a descriptive
+# classification exercise on fully observed job postings. If the goal were
+# to predict job category before salary is known, avg_salary should be
+# removed and treated as a sensitivity check.
+classification_salary_note <- paste(
+  "avg_salary is included here because the classifier is describing observed",
+  "differences between completed job postings.",
+  "A cleaner deployment-style alternative would remove avg_salary if job type",
+  "had to be predicted before salary information is available."
+)
+
 classification_tree_model <- rpart::rpart(
   job_simp ~ rating + company_age_imputed + same_state +
     python + excel + hadoop + spark + aws + tableau + big_data +
@@ -73,7 +84,7 @@ saveRDS(
   classification_tree_model,
   file.path(
     project_paths$outputs_models,
-    "Classification Tree Model - Job Category.rds"
+    "classification_tree_model_job_category.rds"
   )
 )
 
@@ -137,11 +148,11 @@ confusion_matrix_table <- as.data.frame.matrix(confusion_matrix) %>%
 
 write_output_table(
   confusion_matrix_table,
-  "Table 11 Decision Tree Confusion Matrix.csv"
+  "table_11_decision_tree_confusion_matrix.csv"
 )
 write_output_table(
   classification_metrics_table,
-  "Table 12 Decision Tree Performance Metrics.csv"
+  "table_12_decision_tree_performance_metrics.csv"
 )
 
 tree_variable_importance <- tibble::tibble(
@@ -153,7 +164,7 @@ tree_variable_importance <- tibble::tibble(
 png(
   filename = file.path(
     project_paths$outputs_figures,
-    "Figure 11 Decision Tree for Job Category Classification.png"
+    "figure_11_decision_tree_for_job_category_classification.png"
   ),
   width = 11,
   height = 7,
@@ -188,6 +199,7 @@ dev.off()
 cat("\nClassification class counts:\n")
 print(class_counts_table)
 cat("\nClassification accuracy:", format_number(classification_accuracy, 3), "\n")
+cat("\nClassification note:", classification_salary_note, "\n")
 cat("\nClass-level metrics:\n")
 print(classification_metrics_table)
 cat("\nMost important tree variables:\n")

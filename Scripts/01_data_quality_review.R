@@ -1,12 +1,12 @@
 # ==================================================
-# Jobs Analyse
-# Script: 01 Data Quality Review.R
+# Week 11 Data Science Jobs Analysis Project
+# Script: 01_data_quality_review.R
 # Purpose: Load the cleaned jobs dataset and confirm that it is
 #          ready for analysis.
-# Inputs:  Data/Clean/Data Science Jobs Dataset - Clean.csv
-# Outputs: Table 01 Dataset Structure and Quality Summary.csv
-#          Table 02 Variable Missingness Summary.csv
-#          Table 03 Key Category Frequency Summary.csv
+# Inputs:  Data/Clean/Jobs_clean.csv
+# Outputs: table_01_dataset_structure_and_quality_summary.csv
+#          table_02_variable_missingness_summary.csv
+#          table_03_key_category_frequency_summary.csv
 # ==================================================
 
 # --------------------------------------------------
@@ -92,15 +92,15 @@ key_category_counts_table <- bind_rows(
 
 write_output_table(
   dataset_overview_table,
-  "Table 01 Dataset Structure and Quality Summary.csv"
+  "table_01_dataset_structure_and_quality_summary.csv"
 )
 write_output_table(
   missing_values_table,
-  "Table 02 Variable Missingness Summary.csv"
+  "table_02_variable_missingness_summary.csv"
 )
 write_output_table(
   key_category_counts_table,
-  "Table 03 Key Category Frequency Summary.csv"
+  "table_03_key_category_frequency_summary.csv"
 )
 
 cat("\nExact duplicate rows:", exact_duplicate_rows, "\n")

@@ -1,0 +1,67 @@
+# Week 11 Data Science Jobs Analysis Project
+
+## Technical Audience
+**Opening**
+This project applied a Welch t-test, one linear regression model, one decision tree classifier, and one k-means clustering model to the cleaned data science jobs dataset.
+
+**Key findings**
+- Average salary differed between the same-state groups. Postings in the same state as headquarters were 7.44 thousand USD lower on average, with a small effect size (Cohen's d = -0.19).
+- The linear regression model was weak overall (R-squared = 0.028, adjusted R-squared = 0.006; model p = 0.211), so it should be treated as descriptive rather than strongly predictive.
+- The decision tree reached 0.775 test accuracy, only slightly above the majority-class baseline of 0.757. The weakest recall was for data engineer, so class imbalance remained a clear limitation.
+- The final k-means solution used k = 2. Cluster 2 had the higher mean salary at 125.0 thousand USD, but the clearer separation came from differences in spark and hadoop.
+
+**What the models mean**
+The test addresses a two-group salary question, the regression summarises conditional salary associations, the decision tree shows which observed posting characteristics separate the main job groups, and clustering provides an exploratory map of broader job profiles.
+
+**Limitations**
+- avg_salary is included here because the classifier is describing observed differences between completed job postings. A cleaner deployment-style alternative would remove avg_salary if job type had to be predicted before salary information is available.
+- k = 2 was retained because it had the strongest silhouette width, the elbow curve started to flatten after two clusters, and the two-cluster solution remained easiest to interpret as a broad skill-mix split.
+- Seniority was too sparse for reliable modelling, and the regression fit remained weak.
+
+**Recommendations**
+- Collect richer variables such as more detailed location, experience, and employer attributes.
+- If classification becomes a deployment task, rerun it without avg_salary as a predictor and compare the drop in performance.
+
+## Stakeholder Audience
+**Opening**
+This project was designed to explain what the cleaned jobs dataset can say about salaries, job types, and broad role groupings in a clear and cautious way.
+
+**Key findings**
+- Average salary differed between the same-state groups. Postings in the same state as headquarters were 7.44 thousand USD lower on average, with a small effect size (Cohen's d = -0.19).
+- The linear regression model was weak overall (R-squared = 0.028, adjusted R-squared = 0.006; model p = 0.211), so it should be treated as descriptive rather than strongly predictive.
+- The decision tree reached 0.775 test accuracy, only slightly above the majority-class baseline of 0.757. The weakest recall was for data engineer, so class imbalance remained a clear limitation.
+- The final k-means solution used k = 2. Cluster 2 had the higher mean salary at 125.0 thousand USD, but the clearer separation came from differences in spark and hadoop.
+
+**What the models mean**
+The analysis is useful for understanding broad market patterns and role differences, but it is not strong enough for precise salary prediction at the individual posting level.
+
+**Limitations**
+- The dataset contains many more data scientist roles than smaller job groups.
+- Some fields, especially seniority, were sparse or incomplete.
+- The clustering output is an exploratory summary rather than a fixed segmentation.
+
+**Recommendations**
+- Use the results to support discussion, benchmarking, and planning for broad job families.
+- Improve future data collection for seniority and employer context before making stronger predictive claims.
+
+## Non-Technical Decision-Makers
+**Opening**
+The project uses the jobs dataset to identify clear patterns in salary, job category, and skill mix without overstating what the data can prove.
+
+**Key findings**
+- Average salary differed between the same-state groups. Postings in the same state as headquarters were 7.44 thousand USD lower on average, with a small effect size (Cohen's d = -0.19).
+- The salary model was weak, so much of the variation in pay is still unexplained.
+- The classifier worked best for the largest role group and less well for smaller ones.
+- The final k-means solution used k = 2. Cluster 2 had the higher mean salary at 125.0 thousand USD, but the clearer separation came from differences in spark and hadoop.
+
+**What the models mean**
+The results help describe trends in the dataset. They are more suitable for explanation and comparison than for exact prediction.
+
+**Limitations**
+- The dataset is unbalanced across job categories.
+- Some useful variables were incomplete.
+- The clusters are exploratory groupings, not hard categories.
+
+**Recommendations**
+- Use the findings as evidence for discussion rather than as final proof.
+- Support future decisions with more detailed and more balanced data.

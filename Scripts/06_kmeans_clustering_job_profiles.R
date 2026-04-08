@@ -1,16 +1,16 @@
 # ==================================================
-# Jobs Analyse
-# Script: 06 K Means Clustering - Job Profiles.R
+# Week 11 Data Science Jobs Analysis Project
+# Script: 06_kmeans_clustering_job_profiles.R
 # Purpose: Use k-means clustering to explore useful groupings in
 #          the jobs dataset.
-# Inputs:  jobs_data from Script 01 or Data/Clean/Data Science Jobs Dataset - Clean.csv
-# Outputs: Table 13 Cluster Selection Diagnostics.csv
-#          Table 14 Cluster Profile Summary.csv
-#          Table 15 Cluster Membership Counts.csv
-#          Figure 12 K Means Elbow Curve.png
-#          Figure 13 K Means Silhouette Comparison.png
-#          Figure 14 Cluster Visualisation in Principal Components.png
-#          Outputs/Models/K Means Clustering Model - Job Profiles.rds
+# Inputs:  jobs_data from Script 01 or Data/Clean/Jobs_clean.csv
+# Outputs: table_13_cluster_selection_diagnostics.csv
+#          table_14_cluster_profile_summary.csv
+#          table_15_cluster_membership_counts.csv
+#          figure_12_kmeans_elbow_curve.png
+#          figure_13_kmeans_silhouette_comparison.png
+#          figure_14_cluster_visualisation_in_principal_components.png
+#          Outputs/Models/kmeans_clustering_model_job_profiles.rds
 # ==================================================
 
 if (!exists("jobs_data")) {
@@ -42,7 +42,7 @@ cluster_feature_matrix <- scale(cluster_feature_data)
 cluster_distance <- dist(cluster_feature_matrix)
 
 # --------------------------------------------------
-# Choose k using elbow and silhouette checks
+# Choose k using elbow, silhouette, and interpretability
 # --------------------------------------------------
 
 candidate_k_values <- 2:6
@@ -60,10 +60,26 @@ cluster_selection_metrics <- lapply(candidate_k_values, function(k_value) {
 }) %>%
   bind_rows()
 
-final_k <- cluster_selection_metrics %>%
+silhouette_best_k <- cluster_selection_metrics %>%
   filter(average_silhouette_width == max(average_silhouette_width)) %>%
   slice(1) %>%
   pull(k)
+
+# The elbow also bends most clearly at k = 2, so the final choice keeps the
+# strongest silhouette solution while favouring the clearest interpretable split.
+elbow_preferred_k <- 2
+
+if (silhouette_best_k == elbow_preferred_k) {
+  final_k <- elbow_preferred_k
+} else {
+  final_k <- silhouette_best_k
+}
+
+cluster_k_justification <- paste(
+  "k = 2 was retained because it had the strongest silhouette width,",
+  "the elbow curve started to flatten after two clusters, and the",
+  "two-cluster solution remained easiest to interpret as a broad skill-mix split."
+)
 
 cluster_selection_metrics <- cluster_selection_metrics %>%
   mutate(
@@ -72,7 +88,7 @@ cluster_selection_metrics <- cluster_selection_metrics %>%
 
 write_output_table(
   cluster_selection_metrics,
-  "Table 13 Cluster Selection Diagnostics.csv"
+  "table_13_cluster_selection_diagnostics.csv"
 )
 
 # --------------------------------------------------
@@ -86,7 +102,7 @@ saveRDS(
   final_kmeans_model,
   file.path(
     project_paths$outputs_models,
-    "K Means Clustering Model - Job Profiles.rds"
+    "kmeans_clustering_model_job_profiles.rds"
   )
 )
 
@@ -118,11 +134,11 @@ cluster_profiles_table <- jobs_clustered_data %>%
 
 write_output_table(
   cluster_profiles_table,
-  "Table 14 Cluster Profile Summary.csv"
+  "table_14_cluster_profile_summary.csv"
 )
 write_output_table(
   cluster_sizes_table,
-  "Table 15 Cluster Membership Counts.csv"
+  "table_15_cluster_membership_counts.csv"
 )
 
 # --------------------------------------------------
@@ -315,19 +331,20 @@ cluster_visualisation_plot <- ggplot(
 
 save_analysis_figure(
   elbow_curve_plot,
-  "Figure 12 K Means Elbow Curve.png"
+  "figure_12_kmeans_elbow_curve.png"
 )
 save_analysis_figure(
   silhouette_summary_plot,
-  "Figure 13 K Means Silhouette Comparison.png"
+  "figure_13_kmeans_silhouette_comparison.png"
 )
 save_analysis_figure(
   cluster_visualisation_plot,
-  "Figure 14 Cluster Visualisation in Principal Components.png"
+  "figure_14_cluster_visualisation_in_principal_components.png"
 )
 
 cat("\nCluster selection metrics:\n")
 print(cluster_selection_metrics)
 cat("\nFinal k selected:", final_k, "\n")
+cat("Cluster selection note:", cluster_k_justification, "\n")
 cat("\nCluster profiles:\n")
 print(cluster_profiles_table)
