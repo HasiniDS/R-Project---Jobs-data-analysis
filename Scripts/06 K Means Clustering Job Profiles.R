@@ -10,7 +10,6 @@
 #          Figure 12 K Means Elbow Curve.png
 #          Figure 13 K Means Silhouette Comparison.png
 #          Figure 14 Cluster Visualisation in Principal Components.png
-#          Outputs/Models/K Means Clustering Model Job Profiles.rds
 # ==================================================
 
 if (!exists("jobs_data")) {
@@ -97,14 +96,6 @@ write_output_table(
 
 set.seed(7202)
 final_kmeans_model <- kmeans(cluster_feature_matrix, centers = final_k, nstart = 25)
-
-saveRDS(
-  final_kmeans_model,
-  file.path(
-    project_paths$outputs_models,
-    "K Means Clustering Model Job Profiles.rds"
-  )
-)
 
 jobs_clustered_data <- jobs_clustering_data %>%
   mutate(cluster = factor(final_kmeans_model$cluster))

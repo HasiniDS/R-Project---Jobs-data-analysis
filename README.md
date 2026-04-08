@@ -2,6 +2,7 @@
 
 ## Assignment Purpose
 This project finalises the Week 11 jobs mini-project using the cleaned Week 5 dataset work. It covers one hypothesis test, one linear regression model, one classification model, one clustering method, supporting figures, written interpretation, and audience-focused presentation notes.
+The final submission keeps the project tidy by saving only the outputs needed for review: tables, figures, written summaries, and the R scripts themselves.
 
 ## Project Structure
 - `Data/Raw/Tabular_DS_Jobs.csv`
@@ -16,7 +17,6 @@ This project finalises the Week 11 jobs mini-project using the cleaned Week 5 da
 - `Scripts/07 Written Summary and Presentation Notes.R`
 - `Outputs/Tables/`
 - `Outputs/Figures/`
-- `Outputs/Models/`
 - `Week 11 Key Findings.md`
 - `Week 11 Presentation Notes.md`
 - `Week 11 Project Snapshot.md`
@@ -55,11 +55,6 @@ This project finalises the Week 11 jobs mini-project using the cleaned Week 5 da
 - `Outputs/Figures/Figure 12 K Means Elbow Curve.png`
 - `Outputs/Figures/Figure 13 K Means Silhouette Comparison.png`
 - `Outputs/Figures/Figure 14 Cluster Visualisation in Principal Components.png`
-
-### Models
-- `Outputs/Models/Classification Tree Model Job Category.rds`
-- `Outputs/Models/K Means Clustering Model Job Profiles.rds`
-- `Outputs/Models/Linear Regression Model Average Salary.rds`
 
 ## Packages
 - `dplyr`

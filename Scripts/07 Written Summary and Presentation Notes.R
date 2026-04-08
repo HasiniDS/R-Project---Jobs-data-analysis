@@ -70,14 +70,6 @@ if (!exists("figure_output_files")) {
   )
 }
 
-if (!exists("model_output_files")) {
-  model_output_files <- c(
-    "Classification Tree Model Job Category.rds",
-    "K Means Clustering Model Job Profiles.rds",
-    "Linear Regression Model Average Salary.rds"
-  )
-}
-
 if (!exists("written_output_files")) {
   written_output_files <- c(
     "Week 11 Key Findings.md",
@@ -377,6 +369,7 @@ readme_lines <- c(
   "",
   "## Assignment Purpose",
   "This project finalises the Week 11 jobs mini-project using the cleaned Week 5 dataset work. It covers one hypothesis test, one linear regression model, one classification model, one clustering method, supporting figures, written interpretation, and audience-focused presentation notes.",
+  "The final submission keeps the project tidy by saving only the outputs needed for review: tables, figures, written summaries, and the R scripts themselves.",
   "",
   "## Project Structure",
   "- `Data/Raw/Tabular_DS_Jobs.csv`",
@@ -384,7 +377,6 @@ readme_lines <- c(
   paste0("- `Scripts/", script_files, "`"),
   "- `Outputs/Tables/`",
   "- `Outputs/Figures/`",
-  "- `Outputs/Models/`",
   "- `Week 11 Key Findings.md`",
   "- `Week 11 Presentation Notes.md`",
   "- `Week 11 Project Snapshot.md`",
@@ -396,9 +388,6 @@ readme_lines <- c(
   "",
   "### Figures",
   paste0("- `Outputs/Figures/", figure_output_files, "`"),
-  "",
-  "### Models",
-  paste0("- `Outputs/Models/", model_output_files, "`"),
   "",
   "## Packages",
   paste0("- `", required_packages, "`"),

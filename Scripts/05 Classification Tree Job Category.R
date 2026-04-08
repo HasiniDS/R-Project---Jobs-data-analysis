@@ -8,7 +8,6 @@
 #          Table 11 Decision Tree Confusion Matrix.csv
 #          Table 12 Decision Tree Performance Metrics.csv
 #          Figure 11 Decision Tree for Job Category Classification.png
-#          Outputs/Models/Classification Tree Model Job Category.rds
 # ==================================================
 
 if (!exists("jobs_data")) {
@@ -78,14 +77,6 @@ classification_tree_model <- rpart::rpart(
   data = train_data,
   method = "class",
   control = rpart.control(cp = 0.001, maxdepth = 6, minsplit = 8)
-)
-
-saveRDS(
-  classification_tree_model,
-  file.path(
-    project_paths$outputs_models,
-    "Classification Tree Model Job Category.rds"
-  )
 )
 
 # --------------------------------------------------

@@ -5,7 +5,7 @@
 #          to final written outputs.
 # Inputs:  Data/Raw/Tabular_DS_Jobs.csv
 #          Data/Clean/Jobs Clean.csv
-# Outputs: All saved tables, figures, model objects, and markdown
+# Outputs: All saved tables, figures, and markdown
 #          files created in the project folders.
 # ==================================================
 
@@ -56,7 +56,6 @@ project_paths <- list(
   scripts = file.path(project_root, "Scripts"),
   outputs_tables = file.path(project_root, "Outputs", "Tables"),
   outputs_figures = file.path(project_root, "Outputs", "Figures"),
-  outputs_models = file.path(project_root, "Outputs", "Models"),
   written_outputs = project_root
 )
 
@@ -112,12 +111,6 @@ figure_output_files <- c(
   "Figure 14 Cluster Visualisation in Principal Components.png"
 )
 
-model_output_files <- c(
-  "Classification Tree Model Job Category.rds",
-  "K Means Clustering Model Job Profiles.rds",
-  "Linear Regression Model Average Salary.rds"
-)
-
 written_output_files <- c(
   "Week 11 Key Findings.md",
   "Week 11 Presentation Notes.md",
@@ -134,8 +127,7 @@ legacy_written_files <- c(
 
 generated_output_directories <- unlist(project_paths[c(
   "outputs_tables",
-  "outputs_figures",
-  "outputs_models"
+  "outputs_figures"
 )])
 
 for (output_dir in generated_output_directories) {
@@ -154,8 +146,7 @@ clear_directory_files <- function(directory_path) {
 
 for (output_dir in unlist(project_paths[c(
   "outputs_tables",
-  "outputs_figures",
-  "outputs_models"
+  "outputs_figures"
 )])) {
   clear_directory_files(output_dir)
 }
@@ -167,9 +158,14 @@ legacy_written_paths <- file.path(
 unlink(legacy_written_paths[file.exists(legacy_written_paths)], force = TRUE)
 
 legacy_presentation_directory <- file.path(project_root, "Presentation")
+legacy_models_directory <- file.path(project_root, "Outputs", "Models")
 
 if (dir.exists(legacy_presentation_directory)) {
   unlink(legacy_presentation_directory, recursive = TRUE, force = TRUE)
+}
+
+if (dir.exists(legacy_models_directory)) {
+  unlink(legacy_models_directory, recursive = TRUE, force = TRUE)
 }
 
 required_input_files <- c(raw_data_path, clean_data_path)
@@ -412,7 +408,6 @@ existing_output_directories <- generated_output_directories[
 expected_output_paths <- c(
   file.path(project_paths$outputs_tables, table_output_files),
   file.path(project_paths$outputs_figures, figure_output_files),
-  file.path(project_paths$outputs_models, model_output_files),
   file.path(project_paths$written_outputs, written_output_files),
   file.path(project_paths$root, "README.md")
 )
@@ -446,5 +441,4 @@ cat("\n", project_title, " completed successfully.\n", sep = "")
 cat("Project root:", project_root, "\n")
 cat("Tables saved to:", project_paths$outputs_tables, "\n")
 cat("Figures saved to:", project_paths$outputs_figures, "\n")
-cat("Models saved to:", project_paths$outputs_models, "\n")
 cat("Written outputs saved to:", project_paths$written_outputs, "\n")

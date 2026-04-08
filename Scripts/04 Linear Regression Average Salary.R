@@ -10,7 +10,6 @@
 #          Figure 08 Regression Residuals Versus Fitted Values.png
 #          Figure 09 Regression Normal QQ Plot.png
 #          Figure 10 Regression Residual Distribution.png
-#          Outputs/Models/Linear Regression Model Average Salary.rds
 # ==================================================
 
 if (!exists("jobs_data")) {
@@ -78,14 +77,6 @@ write_output_table(
 write_output_table(
   vif_values_table,
   "Table 09 Variance Inflation Factor Summary.csv"
-)
-
-saveRDS(
-  regression_model,
-  file.path(
-    project_paths$outputs_models,
-    "Linear Regression Model Average Salary.rds"
-  )
 )
 
 # --------------------------------------------------
