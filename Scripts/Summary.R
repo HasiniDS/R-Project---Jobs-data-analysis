@@ -161,17 +161,17 @@ slide_order_table <- tibble::tibble(
   )
 )
 
-writeLines("")
-writeLines("Final project summary:")
+print("")
+print("Final project summary:")
 print(final_project_summary_table)
 
-writeLines("")
-writeLines("Main cautions:")
+print("")
+print("Main cautions:")
 print(project_cautions_table)
 
-writeLines("")
-writeLines("Suggested slide order:")
+print("")
+print("Suggested slide order:")
 print(slide_order_table)
 
-writeLines("")
-writeLines("Summary review completed.")
+print("")
+print("Summary review completed.")

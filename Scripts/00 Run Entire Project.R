@@ -389,8 +389,8 @@ clean_label_text <- function(x) {
 # --------------------------------------------------
 
 for (script_file in analysis_script_files) {
-  writeLines("")
-  writeLines(paste0("Running ", script_file, " ..."))
+  print("")
+  print(paste0("Running ", script_file, " ..."))
   source(file.path(project_paths$scripts, script_file), local = FALSE)
 }
 
@@ -448,10 +448,10 @@ if (length(missing_output_paths) > 0) {
   )
 }
 
-writeLines("")
-writeLines("Final consistency checks passed.")
-writeLines("")
-writeLines(paste0(project_title, " completed successfully."))
-writeLines(paste0("Project root: ", project_root))
-writeLines(paste0("Tables saved to: ", project_paths$outputs_tables))
-writeLines(paste0("Figures saved to: ", project_paths$outputs_figures))
+print("")
+print("Final consistency checks passed.")
+print("")
+print(paste0(project_title, " completed successfully."))
+print(paste0("Project root: ", project_root))
+print(paste0("Tables saved to: ", project_paths$outputs_tables))
+print(paste0("Figures saved to: ", project_paths$outputs_figures))

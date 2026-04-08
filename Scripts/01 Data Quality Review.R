@@ -15,12 +15,12 @@
 
 jobs_data <- readr::read_csv(clean_data_path, show_col_types = FALSE)
 
-writeLines("")
-writeLines("Dataset structure check:")
+print("")
+print("Dataset structure check:")
 dplyr::glimpse(jobs_data)
 
-writeLines("")
-writeLines(
+print("")
+print(
   paste0("Dataset dimensions: ", nrow(jobs_data), " rows and ", ncol(jobs_data), " columns.")
 )
 
@@ -107,13 +107,13 @@ write_output_table(
   "Table 03 Key Category Frequency Summary.csv"
 )
 
-writeLines("")
-writeLines(paste0("Exact duplicate rows: ", exact_duplicate_rows))
-writeLines(paste0("Missing company_age values: ", sum(is.na(jobs_data$company_age))))
-writeLines("Top job_simp counts:")
+print("")
+print(paste0("Exact duplicate rows: ", exact_duplicate_rows))
+print(paste0("Missing company_age values: ", sum(is.na(jobs_data$company_age))))
+print("Top job_simp counts:")
 print(jobs_data %>% count(job_simp, sort = TRUE))
 
 jobs_analysis_data <- add_model_fields(jobs_data)
 
-writeLines("")
-writeLines("The cleaned analysis dataset is ready for the Week 11 tasks.")
+print("")
+print("The cleaned analysis dataset is ready for the Week 11 tasks.")
