@@ -157,12 +157,13 @@ png(
     project_paths$outputs_figures,
     "Figure 11 Decision Tree for Job Category Classification.png"
   ),
-  width = 11,
-  height = 7,
+  width = 14,
+  height = 9.2,
   units = "in",
   res = 300,
   bg = "white"
 )
+par(mar = c(1, 1, 3.2, 1))
 rpart.plot::rpart.plot(
   classification_tree_model,
   type = 4,
@@ -171,11 +172,13 @@ rpart.plot::rpart.plot(
   fallen.leaves = TRUE,
   faclen = 0,
   varlen = 0,
-  box.palette = "Blues",
+  box.palette = "BuGn",
   branch.lty = 1,
   branch.col = analysis_palette["charcoal"],
   shadow.col = "grey85",
-  tweak = 1.12,
+  compress = TRUE,
+  roundint = FALSE,
+  tweak = 1.08,
   main = paste(
     "Decision Tree for the Main Job Groups",
     paste0(

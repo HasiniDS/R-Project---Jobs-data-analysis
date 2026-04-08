@@ -1,5 +1,14 @@
 # Week 11 Data Science Jobs Analysis Project
 
+## Suggested Slide Flow
+1. Project aim and dataset overview
+2. Descriptive patterns in salary, job group, rating, and company age
+3. Hypothesis test result for same-state versus different-state postings
+4. Linear regression result and diagnostic interpretation
+5. Decision tree result and class imbalance limitation
+6. K-means cluster selection and cluster interpretation
+7. Final conclusion, limitations, and recommendations
+
 ## Technical Audience
 **Opening**
 This project applied a Welch t-test, one linear regression model, one decision tree classifier, and one k-means clustering model to the cleaned data science jobs dataset.

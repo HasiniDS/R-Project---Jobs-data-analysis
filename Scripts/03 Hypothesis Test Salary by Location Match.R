@@ -142,32 +142,41 @@ salary_same_state_inference_plot <- ggplot(
     data = annotation_segment_data,
     inherit.aes = FALSE,
     colour = analysis_palette["neutral"],
-    linewidth = 0.8,
+    linewidth = 1,
     linetype = "dashed"
   ) +
   geom_linerange(
     aes(ymin = ci_low, ymax = ci_high),
-    linewidth = 1.2,
+    linewidth = 1.4,
     show.legend = FALSE
   ) +
   geom_point(
     aes(fill = same_state_group),
     shape = 21,
-    size = 4.2,
+    size = 4.8,
     stroke = 1.1,
     show.legend = FALSE
   ) +
   geom_text(
     aes(label = paste0(format_number(mean_avg_salary, 1), "k")),
-    nudge_y = 3,
+    nudge_y = 2.4,
     size = 3.6,
     colour = analysis_palette["ink"],
+    show.legend = FALSE
+  ) +
+  geom_text(
+    aes(
+      y = ci_low - 1.1,
+      label = paste0("n = ", scales::comma(group_n))
+    ),
+    size = 3.4,
+    colour = analysis_palette["charcoal"],
     show.legend = FALSE
   ) +
   annotate(
     "label",
     x = 1.5,
-    y = max(hypothesis_group_summary$ci_high) + 10,
+    y = max(hypothesis_group_summary$ci_high) + 11,
     label = annotation_text,
     fill = "white",
     colour = analysis_palette["ink"],
@@ -180,7 +189,10 @@ salary_same_state_inference_plot <- ggplot(
   scale_fill_manual(
     values = unname(binary_palette[levels(hypothesis_group_summary$same_state_group)])
   ) +
-  scale_y_continuous(expand = expansion(mult = c(0.02, 0.20))) +
+  scale_y_continuous(
+    breaks = scales::pretty_breaks(6),
+    expand = expansion(mult = c(0.04, 0.22))
+  ) +
   labs(
     title = "Same-State Jobs Have a Slightly Lower Mean Salary",
     subtitle = "Points show the group mean salary and lines show the 95% confidence interval for each group",
@@ -194,7 +206,9 @@ salary_same_state_inference_plot <- ggplot(
 
 save_analysis_figure(
   salary_same_state_inference_plot,
-  "Figure 07 Salary by Same State Group.png"
+  "Figure 07 Salary by Same State Group.png",
+  width = 10.2,
+  height = 6.5
 )
 
 cat("\nHypothesis test summary:\n")

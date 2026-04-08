@@ -100,21 +100,24 @@ regression_diagnostics <- regression_diagnostics %>%
 qq_tail_points <- regression_diagnostics %>%
   filter(abs(.std.resid) > 2)
 
+qq_tail_count <- nrow(qq_tail_points)
+residual_density_peak <- max(density(regression_diagnostics$.resid, na.rm = TRUE)$y)
+
 regression_residual_plot <- ggplot(
   regression_diagnostics,
   aes(x = .fitted, y = .resid, colour = residual_size)
 ) +
   geom_point(
-    alpha = 0.7,
-    size = 2
+    alpha = 0.68,
+    size = 2.15
   ) +
-  geom_hline(yintercept = 0, colour = analysis_palette["accent"], linewidth = 0.8) +
+  geom_hline(yintercept = 0, colour = analysis_palette["accent"], linewidth = 0.9) +
   geom_smooth(
     method = "loess",
     formula = y ~ x,
     se = FALSE,
     colour = analysis_palette["neutral"],
-    linewidth = 0.8
+    linewidth = 0.95
   ) +
   scale_colour_manual(
     values = c(
@@ -122,6 +125,12 @@ regression_residual_plot <- ggplot(
       "Moderate (1 to 2)" = unname(analysis_palette["gold"]),
       "Large (>|2|)" = unname(analysis_palette["accent"])
     )
+  ) +
+  scale_x_continuous(
+    breaks = scales::pretty_breaks(6)
+  ) +
+  scale_y_continuous(
+    breaks = scales::pretty_breaks(7)
   ) +
   labs(
     title = "Residual Spread Remains Broad Across the Fitted Salary Range",
@@ -144,8 +153,8 @@ regression_residual_plot <- ggplot(
 regression_qq_plot <- ggplot(regression_diagnostics, aes(sample = .std.resid)) +
   stat_qq(
     colour = analysis_palette["neutral"],
-    alpha = 0.6,
-    size = 1.7
+    alpha = 0.68,
+    size = 1.9
   ) +
   stat_qq(
     data = qq_tail_points,
@@ -159,7 +168,12 @@ regression_qq_plot <- ggplot(regression_diagnostics, aes(sample = .std.resid)) +
   ) +
   labs(
     title = "Normal Q-Q Plot for Standardised Residuals",
-    subtitle = "Most residuals follow the reference line reasonably well, with a few larger tail deviations",
+    subtitle = paste(
+      "Most residuals follow the reference line reasonably well,",
+      "with",
+      qq_tail_count,
+      "larger tail departures beyond +/-2."
+    ),
     x = "Theoretical quantiles",
     y = "Sample quantiles",
     caption = figure_caption(
@@ -174,21 +188,39 @@ regression_residual_histogram <- ggplot(
 ) +
   geom_histogram(
     aes(y = after_stat(density)),
-    bins = 28,
+    bins = 24,
     fill = analysis_palette["secondary"],
     colour = "white",
-    alpha = 0.72
+    alpha = 0.72,
+    linewidth = 0.35
   ) +
   geom_density(
     fill = analysis_palette["secondary"],
     colour = analysis_palette["primary"],
-    alpha = 0.14,
-    linewidth = 1
+    alpha = 0.10,
+    linewidth = 1.3
   ) +
   geom_vline(
     xintercept = 0,
     colour = analysis_palette["accent"],
-    linewidth = 0.9
+    linewidth = 1
+  ) +
+  annotate(
+    "label",
+    x = 8,
+    y = residual_density_peak * 0.92,
+    label = "Zero line",
+    fill = "white",
+    colour = analysis_palette["accent"],
+    linewidth = 0.2,
+    size = 3.3
+  ) +
+  scale_x_continuous(
+    breaks = scales::pretty_breaks(7)
+  ) +
+  scale_y_continuous(
+    labels = scales::label_number(accuracy = 0.001),
+    expand = expansion(mult = c(0, 0.06))
   ) +
   labs(
     title = "Residual Distribution is Centred Close to Zero",
@@ -207,15 +239,21 @@ regression_residual_histogram <- ggplot(
 
 save_analysis_figure(
   regression_residual_plot,
-  "Figure 08 Regression Residuals Versus Fitted Values.png"
+  "Figure 08 Regression Residuals Versus Fitted Values.png",
+  width = 10.8,
+  height = 6.4
 )
 save_analysis_figure(
   regression_qq_plot,
-  "Figure 09 Regression Normal QQ Plot.png"
+  "Figure 09 Regression Normal QQ Plot.png",
+  width = 10.6,
+  height = 6.3
 )
 save_analysis_figure(
   regression_residual_histogram,
-  "Figure 10 Regression Residual Distribution.png"
+  "Figure 10 Regression Residual Distribution.png",
+  width = 10.8,
+  height = 6.4
 )
 
 cat("\nLinear regression model summary:\n")

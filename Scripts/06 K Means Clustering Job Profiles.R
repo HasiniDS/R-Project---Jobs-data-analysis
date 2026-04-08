@@ -140,6 +140,12 @@ elbow_curve_plot <- ggplot(
   cluster_selection_metrics,
   aes(x = k, y = total_withinss)
 ) +
+  geom_vline(
+    xintercept = final_k,
+    colour = analysis_palette["neutral"],
+    linewidth = 0.8,
+    linetype = "dashed"
+  ) +
   geom_line(colour = analysis_palette["primary"], linewidth = 1) +
   geom_point(
     aes(fill = selection_status),
@@ -162,7 +168,13 @@ elbow_curve_plot <- ggplot(
       "Selected" = unname(analysis_palette["accent"])
     )
   ) +
-  scale_x_continuous(breaks = candidate_k_values) +
+  scale_x_continuous(
+    breaks = candidate_k_values,
+    expand = expansion(mult = c(0.02, 0.02))
+  ) +
+  scale_y_continuous(
+    breaks = scales::pretty_breaks(5)
+  ) +
   labs(
     title = "Elbow Curve Shows Rapid Improvement Up to the Chosen Solution",
     subtitle = paste("The within-cluster variation falls quickly before the gains begin to flatten at k =", final_k),
@@ -190,6 +202,10 @@ silhouette_summary_plot <- ggplot(
       "Candidate" = unname(analysis_palette["secondary"]),
       "Selected" = unname(analysis_palette["accent"])
     )
+  ) +
+  scale_y_continuous(
+    breaks = scales::pretty_breaks(5),
+    expand = expansion(mult = c(0, 0.08))
   ) +
   labs(
     title = "Silhouette Comparison Supports the Same Cluster Count",
@@ -229,34 +245,39 @@ pca_loading_data <- as.data.frame(pca_model$rotation[, 1:2]) %>%
     loading_strength = sqrt(PC1^2 + PC2^2)
   ) %>%
   arrange(desc(loading_strength)) %>%
-  slice_head(n = 5)
+  slice_head(n = 4)
 
 arrow_scale <- min(
   diff(range(pca_cluster_plot_data$pc1)),
   diff(range(pca_cluster_plot_data$pc2))
-) * 0.28
+) * 0.42
 
 pca_loading_data <- pca_loading_data %>%
   mutate(
     pc1_end = PC1 * arrow_scale,
-    pc2_end = PC2 * arrow_scale
+    pc2_end = PC2 * arrow_scale,
+    label_x = pc1_end * 1.10,
+    label_y = pc2_end * 1.10,
+    feature_label = clean_label_text(gsub("_imputed", "", feature))
   )
 
 cluster_visualisation_plot <- ggplot(
   pca_cluster_plot_data,
   aes(x = pc1, y = pc2)
 ) +
+  geom_hline(yintercept = 0, colour = "#DCE6F0", linewidth = 0.55) +
+  geom_vline(xintercept = 0, colour = "#DCE6F0", linewidth = 0.55) +
   stat_ellipse(
     aes(fill = cluster, colour = cluster),
     geom = "polygon",
-    alpha = 0.12,
-    linewidth = 0.8,
+    alpha = 0.10,
+    linewidth = 1,
     show.legend = FALSE
   ) +
   geom_point(
     aes(colour = cluster),
     alpha = 0.72,
-    size = 2.2
+    size = 2.35
   ) +
   geom_segment(
     data = pca_loading_data,
@@ -267,13 +288,14 @@ cluster_visualisation_plot <- ggplot(
     linewidth = 0.75,
     alpha = 0.9
   ) +
-  geom_text(
+  geom_label(
     data = pca_loading_data,
-    aes(x = pc1_end, y = pc2_end, label = feature),
+    aes(x = label_x, y = label_y, label = feature_label),
     inherit.aes = FALSE,
     colour = analysis_palette["charcoal"],
-    size = 3.3,
-    vjust = -0.5
+    fill = "white",
+    linewidth = 0.2,
+    size = 3.2
   ) +
   geom_point(
     data = pca_cluster_centroids,
@@ -303,6 +325,12 @@ cluster_visualisation_plot <- ggplot(
     values = unname(cluster_palette[cluster_levels]),
     breaks = cluster_levels
   ) +
+  scale_x_continuous(
+    breaks = scales::pretty_breaks(6)
+  ) +
+  scale_y_continuous(
+    breaks = scales::pretty_breaks(6)
+  ) +
   coord_equal() +
   labs(
     title = "Principal Component View of the Final Job Clusters",
@@ -322,15 +350,21 @@ cluster_visualisation_plot <- ggplot(
 
 save_analysis_figure(
   elbow_curve_plot,
-  "Figure 12 K Means Elbow Curve.png"
+  "Figure 12 K Means Elbow Curve.png",
+  width = 10.2,
+  height = 6.2
 )
 save_analysis_figure(
   silhouette_summary_plot,
-  "Figure 13 K Means Silhouette Comparison.png"
+  "Figure 13 K Means Silhouette Comparison.png",
+  width = 10.2,
+  height = 6.2
 )
 save_analysis_figure(
   cluster_visualisation_plot,
-  "Figure 14 Cluster Visualisation in Principal Components.png"
+  "Figure 14 Cluster Visualisation in Principal Components.png",
+  width = 11.2,
+  height = 7.4
 )
 
 cat("\nCluster selection metrics:\n")

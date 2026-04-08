@@ -281,37 +281,46 @@ cluster_palette <- c(
 )
 
 analysis_theme <- function(legend_position = "none") {
-  theme_minimal(base_size = 12) +
+  theme_minimal(base_size = 12.5) +
     theme(
       plot.background = element_rect(fill = "white", colour = NA),
-      panel.background = element_rect(fill = "#FBFCFD", colour = NA),
+      panel.background = element_rect(fill = "white", colour = NA),
       plot.title = element_text(
         face = "bold",
-        size = 15,
+        size = 18,
         colour = analysis_palette["ink"],
         margin = margin(b = 4)
       ),
       plot.subtitle = element_text(
-        size = 10.5,
+        size = 12,
         colour = "grey30",
-        margin = margin(b = 10)
+        margin = margin(b = 12)
       ),
       plot.caption = element_text(
-        size = 9,
+        size = 9.5,
         colour = "grey45",
         hjust = 0,
         margin = margin(t = 10)
       ),
-      axis.title = element_text(face = "bold", colour = analysis_palette["ink"]),
-      axis.text = element_text(colour = "grey20"),
-      legend.title = element_text(face = "bold"),
+      axis.title = element_text(
+        face = "bold",
+        size = 13.5,
+        colour = analysis_palette["ink"]
+      ),
+      axis.title.x = element_text(margin = margin(t = 8)),
+      axis.title.y = element_text(margin = margin(r = 8)),
+      axis.text = element_text(size = 11.5, colour = "grey20"),
+      legend.title = element_text(face = "bold", size = 12.5),
+      legend.text = element_text(size = 11.5),
       legend.background = element_blank(),
       legend.key = element_blank(),
       legend.position = legend_position,
       panel.grid.minor = element_blank(),
-      panel.grid.major = element_line(colour = "#E1E8EE", linewidth = 0.45),
-      plot.margin = margin(10, 12, 10, 12),
-      plot.title.position = "plot"
+      panel.grid.major = element_line(colour = "#DCE6F0", linewidth = 0.55),
+      axis.line = element_blank(),
+      plot.margin = margin(12, 16, 12, 16),
+      plot.title.position = "plot",
+      legend.spacing.x = grid::unit(4, "pt")
     )
 }
 
@@ -327,9 +336,9 @@ figure_caption <- function(extra_note = NULL) {
 
 save_analysis_figure <- function(plot_object,
                                  filename,
-                                 width = 10,
-                                 height = 6,
-                                 dpi = 300) {
+                                 width = 10.8,
+                                 height = 6.4,
+                                 dpi = 320) {
   ggplot2::ggsave(
     filename = file.path(project_paths$outputs_figures, filename),
     plot = plot_object,
@@ -379,6 +388,13 @@ format_percent <- function(x, digits = 1) {
 
 format_p_value <- function(x) {
   ifelse(x < 0.001, "< 0.001", format_number(x, digits = 3))
+}
+
+clean_label_text <- function(x) {
+  cleaned_text <- gsub("_", " ", x)
+  cleaned_text <- tools::toTitleCase(cleaned_text)
+  cleaned_text <- gsub("\\bMle\\b", "MLE", cleaned_text)
+  cleaned_text
 }
 
 # --------------------------------------------------
