@@ -70,7 +70,7 @@ project_script_files <- c(
   "04 Linear Regression Average Salary.R",
   "05 Classification Tree Job Category.R",
   "06 K Means Clustering Job Profiles.R",
-  "07 Written Summary and Presentation Notes.R"
+  "Summary.R"
 )
 
 analysis_script_files <- project_script_files[-1]

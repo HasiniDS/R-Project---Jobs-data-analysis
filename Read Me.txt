@@ -14,7 +14,7 @@ The final submission keeps the project tidy by saving only the outputs needed fo
 - `Scripts/04 Linear Regression Average Salary.R`
 - `Scripts/05 Classification Tree Job Category.R`
 - `Scripts/06 K Means Clustering Job Profiles.R`
-- `Scripts/07 Written Summary and Presentation Notes.R`
+- `Scripts/Summary.R`
 - `Outputs/Tables/`
 - `Outputs/Figures/`
 - `Week 11 Key Findings.txt`

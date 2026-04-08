@@ -1,6 +1,6 @@
 # ==================================================
 # Week 11 Data Science Jobs Analysis Project
-# Script: 07 Written Summary and Presentation Notes.R
+# Script: Summary.R
 # Purpose: Create the written project outputs for submission and
 #          presentation use.
 # Inputs:  Results objects created in earlier scripts
@@ -27,7 +27,7 @@ if (!exists("script_files")) {
     "04 Linear Regression Average Salary.R",
     "05 Classification Tree Job Category.R",
     "06 K Means Clustering Job Profiles.R",
-    "07 Written Summary and Presentation Notes.R"
+    "Summary.R"
   )
 }
 
