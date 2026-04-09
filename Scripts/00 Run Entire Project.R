@@ -326,6 +326,10 @@ save_analysis_figure <- function(plot_object,
                                  width = 10.8,
                                  height = 6.4,
                                  dpi = 360) {
+  if (interactive()) {
+    print(plot_object)
+  }
+
   ggplot2::ggsave(
     filename = file.path(project_paths$outputs_figures, filename),
     plot = plot_object,

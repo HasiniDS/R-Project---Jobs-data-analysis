@@ -175,6 +175,38 @@ tree_variable_importance <- tibble::tibble(
 ) %>%
   arrange(desc(importance))
 
+plot_decision_tree <- function() {
+  par(mar = c(1, 1, 3.2, 1))
+  rpart.plot::rpart.plot(
+    classification_tree_model,
+    type = 4,
+    extra = 104,
+    under = TRUE,
+    fallen.leaves = TRUE,
+    faclen = 0,
+    varlen = 0,
+    box.palette = "BuGn",
+    branch.lty = 1,
+    branch.col = analysis_palette["charcoal"],
+    shadow.col = "grey85",
+    compress = TRUE,
+    roundint = FALSE,
+    tweak = 1.08,
+    main = paste(
+      "Decision Tree for the Main Job Groups",
+      paste0(
+        "Test accuracy = ", format_number(classification_accuracy, 3),
+        "; majority baseline = ", format_number(majority_class_accuracy, 3)
+      ),
+      sep = "\n"
+    )
+  )
+}
+
+if (interactive()) {
+  plot_decision_tree()
+}
+
 png(
   filename = file.path(
     project_paths$outputs_figures,
@@ -186,31 +218,7 @@ png(
   res = 360,
   bg = "white"
 )
-par(mar = c(1, 1, 3.2, 1))
-rpart.plot::rpart.plot(
-  classification_tree_model,
-  type = 4,
-  extra = 104,
-  under = TRUE,
-  fallen.leaves = TRUE,
-  faclen = 0,
-  varlen = 0,
-  box.palette = "BuGn",
-  branch.lty = 1,
-  branch.col = analysis_palette["charcoal"],
-  shadow.col = "grey85",
-  compress = TRUE,
-  roundint = FALSE,
-  tweak = 1.08,
-  main = paste(
-    "Decision Tree for the Main Job Groups",
-    paste0(
-      "Test accuracy = ", format_number(classification_accuracy, 3),
-      "; majority baseline = ", format_number(majority_class_accuracy, 3)
-    ),
-    sep = "\n"
-  )
-)
+plot_decision_tree()
 dev.off()
 
 print("")
